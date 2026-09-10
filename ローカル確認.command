@@ -1,34 +1,59 @@
 #!/bin/bash
 # -------------------------------------------------------------
-# 日本語教育ポータル ローカル確認スクリプト (ダブルクリックで起動)
+# 日本語教育ポータル ローカル確認スクリプト
+# 空きポート（8000, 8001, 8002...）を自動検出して起動します
 # -------------------------------------------------------------
 
-# スクリプトの配置ディレクトリに移動
 cd "$(dirname "$0")"
-
-PORT=8000
-
-# ポートが既に使用されているか確認
-if lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null ; then
-    PORT=8080
-fi
 
 echo "========================================================"
 echo "  🌸 にほんご学習ポータル ローカルサーバー起動"
 echo "========================================================"
-echo "URL: http://localhost:$PORT"
-echo "ブラウザを自動で開きます..."
-echo "終了するには、このウィンドウで [Ctrl + C] を押してください。"
-echo "========================================================"
 
-# バックグラウンドで簡易HTTPサーバーを起動
-python3 -m http.server $PORT &
-SERVER_PID=$!
+# Pythonスクリプトで空きポートを自動探索して起動
+python3 -c "
+import http.server
+import socketserver
+import webbrowser
+import threading
+import time
+import sys
 
-# 少し待ってからブラウザを起動
-sleep 1
-open "http://localhost:$PORT"
+def run_server():
+    # 8000から順に空きポートを探す
+    httpd = None
+    selected_port = None
+    for port in range(8000, 8050):
+        try:
+            httpd = socketserver.TCPServer(('127.0.0.1', port), http.server.SimpleHTTPRequestHandler)
+            selected_port = port
+            break
+        except OSError:
+            continue
 
-# プロセスの終了を待機
-trap "kill $SERVER_PID 2>/dev/null; exit" INT TERM EXIT
-wait $SERVER_PID
+    if not httpd:
+        print('エラー: 利用可能なポートが見つかりませんでした。')
+        sys.exit(1)
+
+    url = f'http://localhost:{selected_port}'
+    print(f'✓ サーバーが起動しました: {url}')
+    print('✓ ブラウザを自動で開きます...')
+    print('========================================================')
+    print('終了するには、このウィンドウで [Ctrl + C] を押してください。')
+    print('========================================================')
+
+    # 0.5秒後にブラウザを自動起動
+    def open_browser():
+        time.sleep(0.5)
+        webbrowser.open(url)
+
+    threading.Thread(target=open_browser, daemon=True).start()
+
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print('\nサーバーを停止しました。')
+        httpd.shutdown()
+
+run_server()
+"
