@@ -1,6 +1,6 @@
 /**
  * 日本語教育ポータル レッスンデータ定義
- * 100レッスン規模に完全対応するデータストア
+ * 100レッスン規模に完全対応するデータストア（日英併記対応）
  */
 
 const LESSONS_DATA = [
@@ -12,6 +12,7 @@ const LESSONS_DATA = [
     category: "文字・発音",
     level: "入門",
     description: "日本語を構成する3種類の文字（ひらがな・カタカナ・漢字）の役割と特徴、母音・子音・長音・促音など正しい日本語発音の基礎を丁寧に学習します。",
+    descriptionEn: "Carefully learn the roles and characteristics of the 3 Japanese writing systems (Hiragana, Katakana, and Kanji), along with natural pronunciation fundamentals including vowels, consonants, long vowels, and double consonants.",
     materials: [
       {
         id: "main",
@@ -25,7 +26,8 @@ const LESSONS_DATA = [
       title: "【解説動画】日本語の文字（ひらがな・カタカナ・漢字）と発音のきほん",
       youtubeId: "wCYvsEgZqjk",
       youtubeUrl: "https://youtu.be/wCYvsEgZqjk",
-      description: "口の開け方・舌の位置・音の長さなど、ネイティブの発音とリズムを動画で一緒に確認しましょう。"
+      description: "口の開け方・舌の位置・音の長さなど、ネイティブの発音とリズムを動画で一緒に確認しましょう。",
+      descriptionEn: "Watch this video to practice mouth shapes, tongue positions, sound lengths, and natural speech rhythm with native pronunciation."
     },
     tags: ["入門", "ひらがな", "カタカナ", "漢字", "発音", "五十音"],
     available: true
@@ -38,6 +40,7 @@ const LESSONS_DATA = [
     category: "基本会話",
     level: "初級1",
     description: "出会った時、別れる時、お礼を言う時の必須あいさつフレーズ。日常会話をスムーズに始めるための『5つの魔法のあいさつ』と対話表現を身につけます。",
+    descriptionEn: "Essential greeting phrases for meeting, parting, and saying thank you. Master the '5 magic greetings' and key conversational patterns to start everyday Japanese conversations smoothly.",
     materials: [
       {
         id: "main",
@@ -58,7 +61,8 @@ const LESSONS_DATA = [
       title: "【解説動画】Lesson 1 基本のあいさつ 会話練習",
       youtubeId: "F3wYl5w9RQE",
       youtubeUrl: "https://www.youtube.com/watch?v=F3wYl5w9RQE",
-      description: "スライドに出てくる会話を声に出してリピート練習しましょう。朝・昼・夜のあいさつの使い分けも解説します。"
+      description: "スライドに出てくる会話を声に出してリピート練習しましょう。朝・昼・夜のあいさつの使い分けも解説します。",
+      descriptionEn: "Repeat the conversations aloud along with the video. Learn how to naturally use morning, afternoon, and evening greetings in real situations."
     },
     tags: ["初級", "あいさつ", "日常会話", "フラッシュカード", "会話表現"],
     available: true
@@ -71,6 +75,7 @@ const LESSONS_DATA = [
     category: "基本会話",
     level: "初級1",
     description: "「はじめまして、〜です。よろしくおねがいします。」名前、国籍、職業を相手に伝える自己紹介の定型表現と基本文型を学びます。",
+    descriptionEn: "Learn essential self-introduction phrases ('Nice to meet you, I am... Pleased to meet you.') and basic sentence structures to introduce your name, nationality, and occupation.",
     materials: [
       {
         id: "main",
@@ -84,7 +89,8 @@ const LESSONS_DATA = [
       title: "【解説動画】Lesson 2 初めての自己紹介",
       youtubeId: "2Xw9Y6yF7gM",
       youtubeUrl: "https://www.youtube.com/watch?v=2Xw9Y6yF7gM",
-      description: "名刺交換やクラスでの自己紹介で使える自然な表現を練習します。"
+      description: "名刺交換やクラスでの自己紹介で使える自然な表現を練習します。",
+      descriptionEn: "Practice natural expressions useful when introducing yourself in classes, workplaces, and exchanges."
     },
     tags: ["初級", "自己紹介", "名詞文", "〜は〜です"],
     available: false
@@ -97,12 +103,14 @@ const LESSONS_DATA = [
     category: "文法",
     level: "初級1",
     description: "指示詞（これ・それ・あれ・どれ）の使い方と、「これは何ですか」「〜の〜」を使った持ち物の表現を学びます。",
+    descriptionEn: "Master Japanese demonstratives (ko-so-a-do: this, that, that over there, which) and express possession with 'whose' and 'what is this?'.",
     materials: [],
     video: {
       title: "【解説動画】これ・それ・あれの距離感マスター",
       youtubeId: "",
       youtubeUrl: "",
-      description: "話し手と聞き手の距離感による使い分けのポイント。"
+      description: "話し手と聞き手の距離感による使い分けのポイント。",
+      descriptionEn: "Key points for choosing demonstratives based on physical and psychological distance between speakers."
     },
     tags: ["初級", "指示詞", "文法", "物の名前"],
     available: false
@@ -115,6 +123,7 @@ const LESSONS_DATA = [
     category: "基本会話",
     level: "初級1",
     description: "場所を表す言葉（ここ・そこ・あそこ・どこ）と、教室や駅、デパートの案内表現を練習します。",
+    descriptionEn: "Practice location words (here, there, over there, where) and useful expressions for asking and giving directions at stations and stores.",
     materials: [],
     tags: ["初級", "場所", "道案内", "案内"],
     available: false
@@ -127,6 +136,7 @@ const LESSONS_DATA = [
     category: "語彙・数詞",
     level: "初級1",
     description: "1〜10,000の数字の数え方、「今何時ですか」、曜日とスケジュールの表現を学びます。",
+    descriptionEn: "Learn counting from 1 to 10,000, asking and telling the time ('What time is it now?'), days of the week, and daily schedule expressions.",
     materials: [],
     tags: ["初級", "数字", "時間", "曜日"],
     available: false
@@ -139,6 +149,7 @@ const LESSONS_DATA = [
     category: "実用会話",
     level: "初級1",
     description: "「いくらですか」「これをください」など、お店やレストランでスムーズに買い物をする会話表現です。",
+    descriptionEn: "Essential shopping and dining phrases such as 'How much is this?' and 'I will take this, please' for smooth communication in shops.",
     materials: [],
     tags: ["初級", "買い物", "値段", "注文"],
     available: false
@@ -151,6 +162,7 @@ const LESSONS_DATA = [
     category: "文法",
     level: "初級1",
     description: "「〜ます / 〜ません / 〜ました」の動詞活用と、朝起きてから夜寝るまでの日常行動を伝える表現。",
+    descriptionEn: "Learn polite verb conjugations (-masu / -masen / -mashita) and describe your daily routines from morning until bedtime.",
     materials: [],
     tags: ["初級", "動詞", "ます形", "日課"],
     available: false
@@ -163,6 +175,7 @@ const LESSONS_DATA = [
     category: "文法",
     level: "初級1",
     description: "「行きます / 来ます / 帰ります」と助詞「へ」「で」「と」を使った行き先・乗り物の表現。",
+    descriptionEn: "Express destinations and transportation using motion verbs (go, come, return) and Japanese particles 'e', 'de', and 'to'.",
     materials: [],
     tags: ["初級", "移動", "助詞", "交通機関"],
     available: false
@@ -175,6 +188,7 @@ const LESSONS_DATA = [
     category: "実用会話",
     level: "初級1",
     description: "好きな食べ物、趣味、「〜をたべます」「〜をのみます」などの目的語をとる動詞表現。",
+    descriptionEn: "Talk about your favorite foods, hobbies, and transitive verbs with objects using the particle 'o' (e.g., eat, drink, read).",
     materials: [],
     tags: ["初級", "食事", "趣味", "助詞を"],
     available: false
@@ -205,7 +219,7 @@ const CURRICULUM_PLAN = [
   "JLPT N3総合対策1", "JLPT N3総合対策2", "JLPT N2導入演習", "総まとめ復習1", "修了総合試験と振り返り"
 ];
 
-// 100レッスンまで補完する自動ジェネレーター
+// 100レッスンまで補完する自動ジェネレーター（日英併記）
 (function generateRemainingLessons() {
   const currentCount = LESSONS_DATA.length;
   for (let i = currentCount + 1; i <= 100; i++) {
@@ -223,12 +237,14 @@ const CURRICULUM_PLAN = [
       category: category,
       level: level,
       description: `第${i}課のカリキュラムです。${planTopic}に関する重要語彙、表現パターン、実践会話を学習します。（スライド資料順次公開予定）`,
+      descriptionEn: `Curriculum for Lesson ${i}. Master essential vocabulary, key sentence patterns, and practical dialogue on "${planTopic}". (Slide materials coming soon)`,
       materials: [],
       video: {
         title: `【解説動画】Lesson ${i} ${planTopic}`,
         youtubeId: "",
         youtubeUrl: "",
-        description: `Lesson ${i} の解説動画です。`
+        description: `Lesson ${i} の解説動画です。`,
+        descriptionEn: `Explanation video for Lesson ${i}.`
       },
       tags: [level, category, planTopic],
       available: false

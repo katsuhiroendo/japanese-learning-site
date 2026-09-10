@@ -314,7 +314,10 @@
         </div>
         <h2 class="card-title">${lesson.title}</h2>
         <div class="card-subtitle">${lesson.subtitle || ""}</div>
-        <p class="card-description">${lesson.description}</p>
+        <p class="card-description">
+          <span class="desc-ja">${lesson.description}</span>
+          ${lesson.descriptionEn ? `<span class="desc-en">${lesson.descriptionEn}</span>` : ""}
+        </p>
         <div class="card-materials-bar">
           ${materialsHtml}
         </div>
@@ -448,7 +451,16 @@
     if (el.detailCatTag) el.detailCatTag.textContent = lesson.category;
     if (el.detailTitle) el.detailTitle.textContent = lesson.title;
     if (el.detailSubtitle) el.detailSubtitle.textContent = lesson.subtitle || "";
-    if (el.detailDesc) el.detailDesc.textContent = lesson.description;
+    if (el.detailDesc) {
+      if (lesson.descriptionEn) {
+        el.detailDesc.innerHTML = `
+          <span class="desc-ja">${lesson.description}</span>
+          <span class="desc-en">${lesson.descriptionEn}</span>
+        `;
+      } else {
+        el.detailDesc.textContent = lesson.description;
+      }
+    }
 
     updateDetailDoneBtn();
     updateLessonPagerNav();
@@ -504,7 +516,14 @@
         el.videoTitle.textContent = videoData.title || "【解説動画】";
       }
       if (el.videoDesc) {
-        el.videoDesc.textContent = videoData.description || "動画を再生して学習ポイントを確認しましょう。";
+        if (videoData.descriptionEn) {
+          el.videoDesc.innerHTML = `
+            <span class="video-desc-ja">${videoData.description}</span>
+            <span class="video-desc-en">${videoData.descriptionEn}</span>
+          `;
+        } else {
+          el.videoDesc.textContent = videoData.description || "動画を再生して学習ポイントを確認しましょう。";
+        }
       }
     } else {
       // 動画がない場合

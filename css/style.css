@@ -544,9 +544,23 @@ button {
   margin-bottom: 20px;
   flex: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.card-description .desc-ja {
+  display: block;
+}
+
+.card-description .desc-en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 4px;
+  line-height: 1.45;
+  font-weight: 500;
 }
 
 /* 教材情報ピル一覧 */
@@ -749,13 +763,30 @@ button {
 }
 
 .lesson-header-desc {
-  font-size: 1rem;
-  color: #334155;
+  font-size: 1.05rem;
+  color: #1e293b;
   line-height: 1.7;
   background: #f8fafc;
-  padding: 16px 20px;
+  padding: 18px 22px;
   border-radius: var(--radius-sm);
   border-left: 4px solid var(--primary);
+}
+
+.lesson-header-desc .desc-ja {
+  display: block;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.lesson-header-desc .desc-en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 0.92rem;
+  color: #64748b;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #cbd5e1;
+  line-height: 1.6;
 }
 
 /* ページネーション（100レッスン対応） */
