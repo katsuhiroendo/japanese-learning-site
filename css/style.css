@@ -223,26 +223,73 @@ button {
   margin: 0 auto;
 }
 
-.hero-tag {
-  display: inline-block;
-  background: var(--primary-light);
-  color: var(--primary);
-  border: 1px solid var(--primary-tint);
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 4px 16px;
-  border-radius: var(--radius-full);
-  margin-bottom: 16px;
-  letter-spacing: 0.05em;
+/* 洗練されたバイリンガルバッジ */
+.hero-tag-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+  padding: 8px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 14px rgba(30, 58, 138, 0.07);
+  transition: all 0.25s ease;
 }
 
-.hero-title {
+.hero-tag-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.12);
+  border-color: #93c5fd;
+}
+
+.tag-main-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-icon {
+  font-size: 1.15rem;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+.tag-title-ja {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+.tag-sub-en {
+  font-family: var(--font-en);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* メインタイトル (日英併記) */
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hero-title-main {
+  font-family: var(--font-display);
+  font-size: 2.35rem;
   font-weight: 900;
   color: #0f172a;
   line-height: 1.35;
-  margin-bottom: 14px;
+  letter-spacing: 0.02em;
 }
 
 .hero-title .highlight {
@@ -257,10 +304,23 @@ button {
   bottom: 4px;
   left: 0;
   width: 100%;
-  height: 8px;
-  background: #fecdd3; /* 桜色マーカー */
+  height: 9px;
+  background: linear-gradient(90deg, #fecdd3, #fda4af); /* 桜色グラデーション */
   z-index: -1;
   border-radius: 4px;
+  opacity: 0.9;
+}
+
+.hero-title-en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.02em;
+  margin-top: 14px;
+  max-width: 680px;
+  line-height: 1.5;
 }
 
 .hero-lead {
@@ -884,7 +944,13 @@ button {
    レスポンシブメディアクエリ
    ============================================================ */
 @media (max-width: 768px) {
-  .hero-title { font-size: 1.65rem; }
+  .hero-tag-badge { padding: 6px 16px; border-radius: 14px; margin-bottom: 16px; }
+  .tag-title-ja { font-size: 0.85rem; }
+  .tag-sub-en { font-size: 0.68rem; }
+  .hero-title-main { font-size: 1.65rem; }
+  .hero-title-en { font-size: 0.92rem; margin-top: 10px; }
+  .hero-lead { font-size: 1rem; }
+  .hero-lead-en { font-size: 0.82rem; }
   .lessons-grid { grid-template-columns: 1fr; }
   .lesson-header-title { font-size: 1.45rem; }
   .detail-nav-bar { flex-direction: column; align-items: stretch; }
