@@ -956,5 +956,6 @@ button {
   .detail-nav-bar { flex-direction: column; align-items: stretch; }
   .lesson-pager-nav { justify-content: space-between; }
   .header-inner { height: 64px; }
+  .site-title { font-size: 1.08rem; }
   .logo-text .site-subtitle { display: none; }
 }
