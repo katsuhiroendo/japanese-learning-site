@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>にほんご学習ポータル | Nihongo Learning Portal</title>
+  <meta name="description" content="洗練されたデザインで学ぶ日本語教育ポータル。100レッスン対応のパワーポイントスライド資料と解説動画で楽しく学べます。">
+
+  <!-- Google Fonts: Zen Maru Gothic, Noto Sans JP, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- スタイルシート -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/viewer.css">
+</head>
+<body>
+
+  <!-- サイトヘッダー -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo-link" id="logo-home-btn" aria-label="トップページへ戻る">
+        <div class="logo-symbol">日</div>
+        <div class="logo-text">
+          <span class="site-title">にほんご学習ポータル</span>
+          <span class="site-subtitle">Nihongo Learning Portal</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <div class="study-stat-badge" title="ローカルに保存された学習完了レッスン数">
+          <span class="dot"></span>
+          <span>学習完了: <strong id="completed-counter">0</strong> / 100 課</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <!-- ========================================================
+         1. トップ画面: レッスン一覧ビュー
+         ======================================================== -->
+    <section id="home-view">
+      <!-- ヒーローエリア -->
+      <div class="hero-section">
+        <div class="container hero-content">
+          <span class="hero-tag">🌸 日本語教育 スライド＆動画教材ライブラリ</span>
+          <h1 class="hero-title">
+            言葉と文化をやさしく、<br>
+            <span class="highlight">親しみやすいスライドと動画</span>で学ぼう
+          </h1>
+          <p class="hero-lead">
+            文字と発音の基礎から実践的な日常会話まで、パワーポイントで作成した見やすい教材をPDF形式で掲載。<br>
+            YouTube動画と連動した100のレッスンで、あなたの日本語学習をしっかりサポートします。
+          </p>
+        </div>
+      </div>
+
+      <!-- 検索 ＆ 絞り込みフィルターセクション -->
+      <div class="container search-filter-section">
+        <!-- 検索バー -->
+        <div class="search-box-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="レッスン番号やタイトル、キーワードを入力（例: #001, あいさつ, 発音）" aria-label="レッスンを検索">
+          <button id="clear-search" class="clear-search-btn" title="検索をクリア">✕</button>
+        </div>
+
+        <!-- フィルタータブ -->
+        <div class="filter-tabs-wrapper">
+          <!-- レッスン番号範囲フィルター (100レッスン対応) -->
+          <div class="filter-row">
+            <span class="filter-label">番号別:</span>
+            <button class="filter-pill range-pill active" data-range="all">すべて (1-100)</button>
+            <button class="filter-pill range-pill" data-range="1-20">#001 〜 #020</button>
+            <button class="filter-pill range-pill" data-range="21-40">#021 〜 #040</button>
+            <button class="filter-pill range-pill" data-range="41-60">#041 〜 #060</button>
+            <button class="filter-pill range-pill" data-range="61-80">#061 〜 #080</button>
+            <button class="filter-pill range-pill" data-range="81-100">#081 〜 #100</button>
+          </div>
+
+          <!-- カテゴリフィルター -->
+          <div class="filter-row">
+            <span class="filter-label">分野別:</span>
+            <button class="filter-pill cat-pill active" data-cat="all">全分野</button>
+            <button class="filter-pill cat-pill" data-cat="文字・発音">文字・発音</button>
+            <button class="filter-pill cat-pill" data-cat="基本会話">基本会話</button>
+            <button class="filter-pill cat-pill" data-cat="文法">文法</button>
+            <button class="filter-pill cat-pill" data-cat="実用会話">実用会話</button>
+          </div>
+
+          <!-- 公開状態フィルター -->
+          <div class="filter-row">
+            <span class="filter-label">教材公開:</span>
+            <button class="filter-pill avail-pill active" data-avail="all">全レッスン表示</button>
+            <button class="filter-pill avail-pill" data-avail="available">✨ 公開中教材のみ</button>
+          </div>
+        </div>
+
+        <!-- 結果件数バー -->
+        <div class="results-info-bar">
+          <div class="results-count">
+            表示中: <strong id="visible-count">0</strong> 件
+          </div>
+          <div class="results-legend">
+            💡 レッスンカードをクリックすると詳細・教材画面が開きます
+          </div>
+        </div>
+
+        <!-- レッスンカード一覧グリッド -->
+        <div id="lessons-grid" class="lessons-grid" role="list">
+          <!-- JavaScriptで動的生成されます -->
+        </div>
+
+        <!-- ページネーション（100レッスン対応） -->
+        <div id="pagination" class="pagination-wrapper"></div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         2. レッスン画面: 詳細ビュー (スライド ＆ 動画)
+         ======================================================== -->
+    <section id="lesson-detail-view" class="lesson-detail-section hidden">
+      <div class="container">
+        <!-- トップナビゲーションバー -->
+        <div class="detail-nav-bar">
+          <button id="btn-back-home" class="btn-back-to-list">
+            <span>←</span> レッスン一覧に戻る
+          </button>
+          <div class="lesson-pager-nav">
+            <button id="btn-prev-lesson" class="btn-pager">
+              <span>◀</span> 前のレッスン
+            </button>
+            <button id="btn-next-lesson" class="btn-pager">
+              次のレッスン <span>▶</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- レッスンヘッダーカード -->
+        <div class="lesson-header-card">
+          <div class="lesson-header-top">
+            <span id="detail-number-badge" class="lesson-number-badge">#001</span>
+            <span id="detail-level-tag" class="level-tag">入門</span>
+            <span id="detail-cat-tag" class="category-tag">文字・発音</span>
+            <button id="detail-toggle-done" class="btn-toggle-done" style="margin-left: auto;">
+              <span>✔</span> <span class="text">完了にする</span>
+            </button>
+          </div>
+          <h2 id="detail-title" class="lesson-header-title">日本語の文字と発音</h2>
+          <div id="detail-subtitle" class="lesson-header-subtitle">Japanese Writing Systems & Pronunciation</div>
+          <p id="detail-desc" class="lesson-header-desc">
+            日本語を構成する3つの文字（漢字・ひらがな・カタカナ）の基本構成と、美しい日本語の正しい発音のルールを丁寧に学習します。
+          </p>
+        </div>
+
+        <!-- ====================================================
+             スライド資料セクション (パワーポイントPDFビューワー)
+             左右の [＜] と [＞] ボタンでページ送り
+             ==================================================== -->
+        <div class="slide-viewer-container" id="slide-viewer-box">
+          <!-- 複数教材がある場合のタブ切り替えバー -->
+          <div class="material-tabs-bar" id="material-tabs"></div>
+
+          <!-- スライド表示メインステージ -->
+          <div class="slide-stage-wrapper">
+            <!-- 左ページ送りボタン [＜] -->
+            <button id="btn-prev-slide" class="slide-nav-btn prev" title="前のページへ (←キー)" aria-label="前のスライド">
+              ＜
+            </button>
+
+            <!-- スライド描画キャンバス -->
+            <div class="slide-canvas-container">
+              <canvas id="slide-canvas"></canvas>
+            </div>
+
+            <!-- 右ページ送りボタン [＞] -->
+            <button id="btn-next-slide" class="slide-nav-btn next" title="次のページへ (→キー)" aria-label="次のスライド">
+              ＞
+            </button>
+
+            <!-- 読み込み中スピナー -->
+            <div id="slide-loading" class="slide-loading-overlay hidden">
+              <div class="spinner"></div>
+              <span>スライドを読み込み中...</span>
+            </div>
+          </div>
+
+          <!-- スライド下部コントロールバー -->
+          <div class="slide-controls-bar">
+            <div class="slide-controls-left">
+              <span id="slide-page-indicator" class="page-indicator">
+                スライド <strong>1</strong> <span class="total">/ 1</span>
+              </span>
+            </div>
+
+            <div class="slide-controls-center">
+              <div class="slide-progress-track">
+                <div id="slide-progress-fill" class="slide-progress-fill"></div>
+              </div>
+            </div>
+
+            <div class="slide-controls-right">
+              <button id="btn-download-pdf" class="icon-btn" title="PDFを別タブで開く・保存する">
+                <span>📥</span> PDFで開く
+              </button>
+              <button id="btn-fullscreen" class="icon-btn" title="全画面表示（Fキー）">
+                <span>⛶</span> 全画面
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====================================================
+             動画資料セクション (YouTubeプレイヤー)
+             ==================================================== -->
+        <div class="video-section" id="video-section">
+          <div class="video-section-header">
+            <div class="video-section-title">
+              <span>🎥</span>
+              <span id="video-title">【解説動画】レッスン解説</span>
+              <span class="badge-yt">YouTube</span>
+            </div>
+          </div>
+          <div class="video-player-wrapper" id="video-wrapper">
+            <iframe id="youtube-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="解説動画"></iframe>
+          </div>
+          <div class="video-description" id="video-desc">
+            動画を再生して、ネイティブの発音や会話の流れを確認しましょう。
+          </div>
+        </div>
+
+        <!-- 下部ナビゲーションバー -->
+        <div class="detail-nav-bar" style="margin-top: 32px;">
+          <button class="btn-back-to-list" onclick="document.getElementById('btn-back-home').click()">
+            <span>←</span> レッスン一覧に戻る
+          </button>
+          <div class="lesson-pager-nav">
+            <button class="btn-pager" onclick="document.getElementById('btn-prev-lesson').click()">
+              <span>◀</span> 前のレッスン
+            </button>
+            <button class="btn-pager" onclick="document.getElementById('btn-next-lesson').click()">
+              次のレッスン <span>▶</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          にほんご学習ポータル
+          <div style="font-size: 0.8rem; font-weight: normal; color: #64748b; margin-top: 4px;">
+            洗練された教材と動画で学ぶ日本語学習プラットフォーム
+          </div>
+        </div>
+        <div class="footer-nav">
+          <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">トップへ戻る</a>
+          <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 日本語教育ポータル / Nihongo Learning Portal. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
+  <script src="lib/pdf.min.js"></script>
+  <!-- レッスンデータ -->
+  <script src="js/lessons-data.js"></script>
+  <!-- スライドビューワーコントローラー -->
+  <script src="js/viewer.js"></script>
+  <!-- メインアプリケーションロジック -->
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+/**
+ * スライドビューワー & メディアプレイヤー専用スタイル
+ */
+
+/* ============================================================
+   スライドビューワーコンテナ
+   ============================================================ */
+.slide-viewer-container {
+  position: relative;
+  background: #1e293b;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 複数資料タブ切り替え */
+.material-tabs-bar {
+  display: flex;
+  gap: 8px;
+  background: #0f172a;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  align-items: center;
+}
+
+.material-tab-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.material-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.material-tab-btn.active {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  border-color: #60a5fa;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* スライド表示メインステージ（左右にボタン配置） */
+.slide-stage-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+  background: #0b0f19;
+  user-select: none;
+  overflow: hidden;
+}
+
+.slide-canvas-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}
+
+#slide-canvas {
+  max-width: 100%;
+  max-height: 72vh;
+  height: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  transition: opacity 0.15s ease-out;
+  background-color: #ffffff;
+}
+
+/* 左右のページ送りボタン [＜] [＞] */
+.slide-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 64px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.slide-nav-btn:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.9);
+  border-color: #93c5fd;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.slide-nav-btn:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.slide-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.slide-nav-btn.prev {
+  left: 16px;
+}
+
+.slide-nav-btn.next {
+  right: 16px;
+}
+
+/* ローディングスピナー */
+.slide-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  color: #e2e8f0;
+  gap: 12px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.slide-loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* スライド操作コントロールバー */
+.slide-controls-bar {
+  background: #0f172a;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #94a3b8;
+}
+
+.slide-controls-left,
+.slide-controls-center,
+.slide-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* プログレスバー */
+.slide-progress-track {
+  width: 140px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.slide-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  width: 0%;
+  transition: width 0.2s ease-out;
+}
+
+.page-indicator {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.page-indicator span.total {
+  color: #94a3b8;
+  font-weight: normal;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* フルスクリーン時のスタイル */
+.slide-viewer-container:fullscreen {
+  border-radius: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.slide-viewer-container:fullscreen .slide-stage-wrapper {
+  flex: 1;
+  min-height: 0;
+}
+
+.slide-viewer-container:fullscreen #slide-canvas {
+  max-height: 88vh;
+}
+
+/* ============================================================
+   動画資料セクション
+   ============================================================ */
+.video-section {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.video-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 0.75rem;
+}
+
+.video-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.video-section-title .badge-yt {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.video-player-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 比率 */
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.video-player-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-description {
+  margin-top: 1rem;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 768px) {
+  .slide-nav-btn {
+    width: 42px;
+    height: 52px;
+    font-size: 1.4rem;
+  }
+  .slide-nav-btn.prev { left: 8px; }
+  .slide-nav-btn.next { right: 8px; }
+  .slide-stage-wrapper { min-height: 320px; }
+  .slide-progress-track { width: 90px; }
+  .video-section { padding: 18px; }
+}
