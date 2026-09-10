@@ -13,7 +13,7 @@
     searchQuery: "",
     categoryFilter: "all",
     rangeFilter: "all",
-    availFilter: "all",
+    availFilter: "available",
     currentPage: 1,
     itemsPerPage: 12,
     completedLessonIds: new Set(
