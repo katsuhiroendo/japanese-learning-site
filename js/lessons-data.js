@@ -23,8 +23,8 @@ const LESSONS_DATA = [
     ],
     video: {
       title: "【解説動画】日本語の文字（ひらがな・カタカナ・漢字）と発音のきほん",
-      youtubeId: "k74Za2p_K2E",
-      youtubeUrl: "https://www.youtube.com/watch?v=k74Za2p_K2E",
+      youtubeId: "wCYvsEgZqjk",
+      youtubeUrl: "https://youtu.be/wCYvsEgZqjk",
       description: "口の開け方・舌の位置・音の長さなど、ネイティブの発音とリズムを動画で一緒に確認しましょう。"
     },
     tags: ["入門", "ひらがな", "カタカナ", "漢字", "発音", "五十音"],

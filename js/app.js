@@ -484,7 +484,11 @@
     if (videoData && (videoData.youtubeId || videoData.youtubeUrl)) {
       el.videoSection.style.display = "block";
       
-      let videoId = videoData.youtubeId;
+      let videoId = (videoData.youtubeId || "").trim();
+      if (videoId.includes("/") || videoId.includes("?")) {
+        const match = videoId.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
+        if (match) videoId = match[1];
+      }
       if (!videoId && videoData.youtubeUrl) {
         const urlMatch = videoData.youtubeUrl.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
         if (urlMatch) videoId = urlMatch[1];
