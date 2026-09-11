@@ -80,6 +80,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 51): 'みなみ！',   # minami (south) -> mi↓ na↑ mi↑ (低-高-高 平板アクセント確定)
     ('001_02', 53): '目標',       # mokuhyoo (aim) -> mo↓ ku↑ hyo↑ o↑ (平板アクセント)
     ('001_02', 54): '脈',         # myaku (pulse) -> may↓ ku↑ (平板アクセント)
+    ('001_02', 55): '妙技',       # myoo (odd) -> myo↑ o↓ (頭高アクセント調音トリミング)
     ('001_02', 58): '欲',         # yoku (desire) -> yho↓ ku↑ (平板アクセント)
     ('001_02', 59): '雇う',       # yatou (to employ) -> ya↓ to↑ u↓ (中高アクセント)
     ('001_02', 64): 'ラク',       # raku (easy) -> ra↓ ku↑ (低-高平板アクセント確定)
