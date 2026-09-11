@@ -94,6 +94,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 95): '出る',       # deru (to go out) -> de↑ ru↓ (頭高アクセント)
     ('001_02', 98): '出鱈目！',    # detarame (nonsense) -> de↓ ta↑ ra↑ me↑ (低-高-高-高 平板アクセント)
     ('001_02', 100): '罰',        # batsu (punishment) -> ba↑ tsu↓ (頭高アクセント)
+    ('001_02', 101): 'ビール',     # biiru (beer) -> bi↑ i↓ ru↓ (頭高アクセント)
 }
 
 def clean_for_speech(text):
