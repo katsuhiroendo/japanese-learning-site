@@ -72,6 +72,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 12): 'ケーキ',  # keeki (cake) -> ke↑ e↓ ki↓ (頭高アクセント)
     ('001_02', 15): '教会',    # kyookai (church) -> kyo↓ o↑ ka↑ i↑ (平板アクセント)
     ('001_02', 17): '吸う。',  # suu (to smoke) -> su↓ u↑ (動詞終止形・平板アクセント)
+    ('001_02', 19): '少し。',  # sukoshi (a little) -> su↓ ko↑ shi↓ (中高アクセント)
 }
 
 def clean_for_speech(text):
