@@ -38,6 +38,7 @@ class SlideViewer {
     this.speechRate = 0.85; // 初学者向けデフォルト0.85倍速
     this.isSpeaking = false;
     this.jaVoice = null;
+    this.currentAudio = null;
 
     this.initEvents();
   }
@@ -284,18 +285,28 @@ class SlideViewer {
     }
   }
 
+  stopCurrentAudio() {
+    if (this.currentAudio) {
+      this.currentAudio.pause();
+      this.currentAudio.currentTime = 0;
+      this.currentAudio = null;
+    }
+    if (window.speechSynthesis && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+      window.speechSynthesis.cancel();
+    }
+    this.setSpeakingState(false);
+  }
+
   prevPage() {
     if (this.currentPage <= 1) return;
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-    this.setSpeakingState(false);
+    this.stopCurrentAudio();
     this.currentPage--;
     this.queueRenderPage(this.currentPage);
   }
 
   nextPage() {
     if (this.currentPage >= this.totalPages) return;
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-    this.setSpeakingState(false);
+    this.stopCurrentAudio();
     this.currentPage++;
     this.queueRenderPage(this.currentPage);
   }
@@ -303,8 +314,7 @@ class SlideViewer {
   goToPage(num) {
     const target = parseInt(num, 10);
     if (!isNaN(target) && target >= 1 && target <= this.totalPages) {
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-      this.setSpeakingState(false);
+      this.stopCurrentAudio();
       this.currentPage = target;
       this.queueRenderPage(this.currentPage);
     }
@@ -369,28 +379,70 @@ class SlideViewer {
 
   /**
    * 現在のスライドの日本語を発音再生
+   * 高品質スタジオMP3音源を優先再生し、フォールバックとしてWeb Speech APIを使用
    */
   speakCurrentPage() {
-    if (!("speechSynthesis" in window)) {
-      alert("お使いのブラウザは音声合成に対応していません。 / Web Speech API is not supported in this browser.");
-      return;
-    }
-
     const item = this.getCurrentSpeechItem();
     if (!item) {
       console.warn("No speech item for page:", this.currentPage, this.currentPdfUrl);
       return;
     }
 
-    // 読み上げテキスト（ひらがな優先、なければローマ字）
+    this.stopCurrentAudio();
+
+    // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
+    if (item.audio) {
+      try {
+        const audio = new Audio(item.audio);
+        this.currentAudio = audio;
+        audio.playbackRate = this.speechRate || 1.0;
+
+        this.setSpeakingState(true);
+
+        audio.onended = () => {
+          this.setSpeakingState(false);
+          this.currentAudio = null;
+        };
+
+        audio.onerror = (e) => {
+          console.warn("MP3 audio play error, falling back to Web Speech:", e);
+          this.setSpeakingState(false);
+          this.currentAudio = null;
+          this.speakWithWebSpeech(item);
+        };
+
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.warn("Audio autoplay / play rejected:", err);
+            this.setSpeakingState(false);
+          });
+        }
+        return;
+      } catch (err) {
+        console.warn("HTML5 audio creation error:", err);
+      }
+    }
+
+    // 2. MP3がない場合のフォールバック（Web Speech API）
+    this.speakWithWebSpeech(item);
+  }
+
+  /**
+   * Web Speech API によるフォールバック発音
+   */
+  speakWithWebSpeech(item) {
+    if (!("speechSynthesis" in window)) {
+      alert("お使いのブラウザは音声再生に対応していません。");
+      return;
+    }
+
     const text = item.kana || item.romaji;
     if (!text) return;
 
-    // ブラウザの音声キューが一時停止している場合の復帰
     if (window.speechSynthesis.paused) {
       window.speechSynthesis.resume();
     }
-    // 発音中のものがあればキャンセル
     if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
       window.speechSynthesis.cancel();
     }
@@ -399,7 +451,6 @@ class SlideViewer {
     utterance.lang = "ja-JP";
     utterance.rate = this.speechRate || 1.0;
 
-    // 日本語音声を動的に取得・適用（端末内蔵ローカル音声を優先）
     if (window.speechSynthesis.getVoices) {
       const voices = window.speechSynthesis.getVoices();
       if (voices && voices.length > 0) {
@@ -444,6 +495,9 @@ class SlideViewer {
       this.speechRate = 0.85;
       if (this.speedLabel) this.speedLabel.textContent = "0.8x (ゆっくり)";
       if (this.speedIcon) this.speedIcon.textContent = "🐢";
+    }
+    if (this.currentAudio && !this.currentAudio.paused) {
+      this.currentAudio.playbackRate = this.speechRate;
     }
   }
 
