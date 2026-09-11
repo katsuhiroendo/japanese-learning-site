@@ -16,10 +16,17 @@ const LESSONS_DATA = [
     materials: [
       {
         id: "main",
-        title: "📖 講義スライド (177p)",
-        file: "slides/001_japanese_writing.pdf",
-        pages: 177,
-        badge: "総合スライド"
+        title: "📖 本編スライド (24p)",
+        file: "slides/001_01_japanese_writing.pdf",
+        pages: 24,
+        badge: "本編"
+      },
+      {
+        id: "fc",
+        title: "🎴 単語フラッシュカード (153p)",
+        file: "slides/001_02_japanese_writing_fc.pdf",
+        pages: 153,
+        badge: "単語カード"
       }
     ],
     video: {

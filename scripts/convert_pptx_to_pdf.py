@@ -23,6 +23,8 @@ def get_clean_name(filename: str) -> str:
     # 簡単なマッピング
     mapping = {
         "#001_日本語の文字と発音": "001_japanese_writing",
+        "#001_01_日本語の文字と発音": "001_01_japanese_writing",
+        "#001_02_日本語の文字と発音_FC": "001_02_japanese_writing_fc",
         "#002_01_Lesson1_あいさつ": "002_01_lesson1_aisatsu",
         "#002_02_Lesson1_あいさつ_FC": "002_02_lesson1_aisatsu_fc"
     }
