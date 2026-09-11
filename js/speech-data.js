@@ -929,7 +929,8 @@ var SPEECH_DATA = {
       "romaji": "AISATSU   Greetings",
       "kana": "Ohayoo gozai-masu   ·   Konnichiwa   ·   Konbanwa",
       "en": "The basic greetings used throughout Lesson 1 and its opening conversation:",
-      "audio": "audio/002_02/slide_001.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "2": {
       "romaji": "Ohayoo gozai-masu",
@@ -977,7 +978,8 @@ var SPEECH_DATA = {
       "romaji": "Exercise 1  (1) & (3)   Substitution Drill",
       "kana": "(3)   Watashi wa Seeko de wa ari-masen.",
       "en": "(1)   Watashi wa Seeko desu.",
-      "audio": "audio/002_02/slide_009.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "10": {
       "romaji": "Seeko",
@@ -1049,7 +1051,8 @@ var SPEECH_DATA = {
       "romaji": "Exercise 1  (2) & (4)   Substitution Drill",
       "kana": "(4)   Watashi wa Nihon-jin de wa ari-masen.",
       "en": "(2)   Watashi wa Nihon-jin desu.",
-      "audio": "audio/002_02/slide_021.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "22": {
       "romaji": "watashi-tachi",
@@ -1115,7 +1118,8 @@ var SPEECH_DATA = {
       "romaji": "Exercise 1  (5) & Exercise 2   Question & Answer Drill",
       "kana": "P.   Hai, Seeko desu.",
       "en": "(5)   Anata wa Seeko-san desu ka?",
-      "audio": "audio/002_02/slide_032.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "33": {
       "romaji": "Anata wa Jon-san desu ka?",
@@ -1151,7 +1155,8 @@ var SPEECH_DATA = {
       "romaji": "Numbers (I)   0  ~  100",
       "kana": "Zero   ·   Ichi   ·   Ni   ·   San   ·   Yon   ·   Go",
       "en": "The basic numbers, used to build every number up to 100:",
-      "audio": "audio/002_02/slide_038.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "39": {
       "romaji": "Zero",
@@ -1229,7 +1234,8 @@ var SPEECH_DATA = {
       "romaji": "Months   -gatsu",
       "kana": "Ichi-gatsu  (1)  →  January",
       "en": "Months are simply a number + \"-gatsu\":",
-      "audio": "audio/002_02/slide_051.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "52": {
       "romaji": "Ichi-gatsu",
@@ -1307,7 +1313,8 @@ var SPEECH_DATA = {
       "romaji": "Time   -ji  ·  o'clock",
       "kana": "Ichi-ji  (1)  →  1 o'clock",
       "en": "Telling time on the hour is a number + \"-ji\":",
-      "audio": "audio/002_02/slide_064.mp3"
+      "isExplanation": true,
+      "noAudio": true
     },
     "65": {
       "romaji": "Ichi-ji",

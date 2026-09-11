@@ -165,6 +165,10 @@ async def main():
         subfolder = folder_map.get(pdf_key, "misc")
         for p_str, item in slides.items():
             page_num = int(p_str)
+            if item.get('isExplanation') or item.get('noAudio'):
+                if 'audio' in item:
+                    del item['audio']
+                continue
             raw_text = item.get('kana') or item.get('romaji') or ''
             if (subfolder, page_num) in SLIDE_TEXT_OVERRIDES:
                 speech_text = SLIDE_TEXT_OVERRIDES[(subfolder, page_num)]

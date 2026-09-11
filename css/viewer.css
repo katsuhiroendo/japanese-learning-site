@@ -386,7 +386,9 @@
   gap: 8px;
 }
 
-.slide-controls-audio.hidden {
+.slide-controls-audio.hidden,
+.speak-btn.hidden,
+.speed-btn.hidden {
   display: none !important;
 }
 

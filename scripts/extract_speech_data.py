@@ -133,11 +133,15 @@ def extract_002_fc(filepath):
         else:
             kana = romaji
 
+        is_explanation = (i + 1) in {1, 9, 21, 32, 38, 51, 64}
         data[i + 1] = {
             'romaji': romaji,
             'kana': kana,
             'en': en
         }
+        if is_explanation:
+            data[i + 1]['isExplanation'] = True
+            data[i + 1]['noAudio'] = True
     return data
 
 def get_002_main_speech():
