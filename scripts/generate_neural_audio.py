@@ -64,6 +64,12 @@ READING_FIXES = {
     'Ohayoo gozai-masu   ·   Konnichiwa   ·   Konbanwa': 'おはようございます。こんにちは。こんばんは。'
 }
 
+# スライド単位の正確な発音テキスト指定（同音異義語・アクセント確定用）
+# 例: '001_02' の 4ページ: 'oi' (nephew) は「甥」（低-高の平板アクセント）
+SLIDE_TEXT_OVERRIDES = {
+    ('001_02', 4): '甥',       # oi (nephew) -> 低-高 (平板アクセント)
+}
+
 def clean_for_speech(text):
     text = text.strip()
     if text in READING_FIXES:
@@ -114,7 +120,10 @@ async def main():
         for p_str, item in slides.items():
             page_num = int(p_str)
             raw_text = item.get('kana') or item.get('romaji') or ''
-            speech_text = clean_for_speech(raw_text)
+            if (subfolder, page_num) in SLIDE_TEXT_OVERRIDES:
+                speech_text = SLIDE_TEXT_OVERRIDES[(subfolder, page_num)]
+            else:
+                speech_text = clean_for_speech(raw_text)
             
             filename = f"slide_{page_num:03d}.mp3"
             rel_path = f"audio/{subfolder}/{filename}"
