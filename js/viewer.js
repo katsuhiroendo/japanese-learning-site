@@ -24,6 +24,21 @@ class SlideViewer {
     this.currentScale = 1.5;
     this.currentPdfUrl = "";
 
+    // 音声発音機能プロパティ
+    this.speakBtn = document.getElementById("btn-speak-slide");
+    this.speedBtn = document.getElementById("btn-speech-speed");
+    this.speedLabel = document.getElementById("speed-label");
+    this.speedIcon = document.getElementById("speed-icon");
+    this.floatingAudioPill = document.getElementById("floating-audio-pill");
+    this.btnFloatingSpeak = document.getElementById("btn-floating-speak");
+    this.floatingWordRomaji = document.getElementById("floating-word-romaji");
+    this.floatingWordKana = document.getElementById("floating-word-kana");
+    this.floatingWordEn = document.getElementById("floating-word-en");
+
+    this.speechRate = 0.85; // 初学者向けデフォルト0.85倍速
+    this.isSpeaking = false;
+    this.jaVoice = null;
+
     this.initEvents();
   }
 
@@ -34,6 +49,31 @@ class SlideViewer {
     }
     if (this.nextBtn) {
       this.nextBtn.addEventListener("click", () => this.nextPage());
+    }
+
+    // 発音ボタン
+    if (this.speakBtn) {
+      this.speakBtn.addEventListener("click", () => this.speakCurrentPage());
+    }
+    if (this.btnFloatingSpeak) {
+      this.btnFloatingSpeak.addEventListener("click", () => this.speakCurrentPage());
+    }
+
+    // 再生速度切替ボタン
+    if (this.speedBtn) {
+      this.speedBtn.addEventListener("click", () => this.toggleSpeechSpeed());
+    }
+
+    // 日本語音声エンジンのロード
+    if (window.speechSynthesis) {
+      const loadVoices = () => {
+        const voices = window.speechSynthesis.getVoices();
+        this.jaVoice = voices.find(v => v.lang === "ja-JP" || v.lang === "ja_JP" || v.lang.startsWith("ja")) || null;
+      };
+      loadVoices();
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+      }
     }
 
     // フルスクリーン切り替え
@@ -50,7 +90,7 @@ class SlideViewer {
       });
     }
 
-    // キーボードショートカット (左右矢印キー)
+    // キーボードショートカット (左右矢印キー & S/Vキー発音)
     window.addEventListener("keydown", (e) => {
       // 入力フォーム操作中はスキップ
       if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
@@ -66,6 +106,9 @@ class SlideViewer {
         this.nextPage();
       } else if (e.key === "f" || e.key === "F") {
         this.toggleFullscreen();
+      } else if (e.key === "s" || e.key === "S" || e.key === "v" || e.key === "V") {
+        e.preventDefault();
+        this.speakCurrentPage();
       }
     });
 
@@ -239,12 +282,16 @@ class SlideViewer {
 
   prevPage() {
     if (this.currentPage <= 1) return;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    this.setSpeakingState(false);
     this.currentPage--;
     this.queueRenderPage(this.currentPage);
   }
 
   nextPage() {
     if (this.currentPage >= this.totalPages) return;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    this.setSpeakingState(false);
     this.currentPage++;
     this.queueRenderPage(this.currentPage);
   }
@@ -252,6 +299,8 @@ class SlideViewer {
   goToPage(num) {
     const target = parseInt(num, 10);
     if (!isNaN(target) && target >= 1 && target <= this.totalPages) {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      this.setSpeakingState(false);
       this.currentPage = target;
       this.queueRenderPage(this.currentPage);
     }
@@ -275,6 +324,104 @@ class SlideViewer {
     if (this.progressFill && this.totalPages > 0) {
       const percentage = (this.currentPage / this.totalPages) * 100;
       this.progressFill.style.width = `${percentage}%`;
+    }
+
+    // 音声発音UIの更新
+    this.updateSpeechUI();
+  }
+
+  /**
+   * 現在のスライドに対応する発音データの取得
+   */
+  getCurrentSpeechItem() {
+    if (!window.SPEECH_DATA || !this.currentPdfUrl) return null;
+    const pdfData = window.SPEECH_DATA[this.currentPdfUrl];
+    return pdfData ? pdfData[this.currentPage] : null;
+  }
+
+  /**
+   * 現在のスライドの日本語を発音再生
+   */
+  speakCurrentPage() {
+    if (!("speechSynthesis" in window)) {
+      alert("お使いのブラウザは音声合成に対応していません。 / Web Speech API is not supported in this browser.");
+      return;
+    }
+
+    const item = this.getCurrentSpeechItem();
+    if (!item) return;
+
+    // 読み上げテキスト（ひらがな優先、なければローマ字）
+    const text = item.kana || item.romaji;
+    if (!text) return;
+
+    // 既存音声をキャンセル
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    utterance.rate = this.speechRate;
+
+    if (this.jaVoice) {
+      utterance.voice = this.jaVoice;
+    }
+
+    this.setSpeakingState(true);
+
+    utterance.onend = () => {
+      this.setSpeakingState(false);
+    };
+
+    utterance.onerror = () => {
+      this.setSpeakingState(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  setSpeakingState(speaking) {
+    this.isSpeaking = speaking;
+    if (this.speakBtn) {
+      this.speakBtn.classList.toggle("is-speaking", speaking);
+    }
+    if (this.btnFloatingSpeak) {
+      this.btnFloatingSpeak.classList.toggle("is-speaking", speaking);
+    }
+  }
+
+  toggleSpeechSpeed() {
+    if (this.speechRate <= 0.85) {
+      this.speechRate = 1.0;
+      if (this.speedLabel) this.speedLabel.textContent = "1.0x (標準)";
+      if (this.speedIcon) this.speedIcon.textContent = "⚡";
+    } else {
+      this.speechRate = 0.85;
+      if (this.speedLabel) this.speedLabel.textContent = "0.8x (ゆっくり)";
+      if (this.speedIcon) this.speedIcon.textContent = "🐢";
+    }
+  }
+
+  updateSpeechUI() {
+    const item = this.getCurrentSpeechItem();
+    if (item) {
+      if (this.speakBtn) this.speakBtn.classList.remove("hidden");
+      if (this.speedBtn) this.speedBtn.classList.remove("hidden");
+      if (this.floatingAudioPill) {
+        this.floatingAudioPill.classList.remove("hidden");
+      }
+      if (this.floatingWordRomaji) {
+        this.floatingWordRomaji.textContent = item.romaji || "";
+      }
+      if (this.floatingWordKana) {
+        this.floatingWordKana.textContent = item.kana ? `(${item.kana})` : "";
+      }
+      if (this.floatingWordEn) {
+        this.floatingWordEn.textContent = item.en || "";
+      }
+    } else {
+      if (this.speakBtn) this.speakBtn.classList.add("hidden");
+      if (this.speedBtn) this.speedBtn.classList.add("hidden");
+      if (this.floatingAudioPill) this.floatingAudioPill.classList.add("hidden");
     }
   }
 

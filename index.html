@@ -12,8 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- スタイルシート -->
-  <link rel="stylesheet" href="css/style.css?v=1.1">
-  <link rel="stylesheet" href="css/viewer.css?v=1.1">
+  <link rel="stylesheet" href="css/style.css?v=1.2">
+  <link rel="stylesheet" href="css/viewer.css?v=1.2">
 </head>
 <body>
 
@@ -196,6 +196,21 @@
               ＞
             </button>
 
+            <!-- フローティング発音クイックバッジ (スライド右上) -->
+            <div id="floating-audio-pill" class="floating-audio-pill hidden">
+              <button id="btn-floating-speak" class="floating-speak-btn" title="クリックまたはSキーで発音 / Click or press S to listen">
+                <span class="audio-sound-wave">
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                  <span class="wave-bar"></span>
+                </span>
+                <span class="audio-speaker-icon">🔊</span>
+                <span id="floating-word-romaji" class="word-romaji">ai</span>
+                <span id="floating-word-kana" class="word-kana">あい</span>
+                <span id="floating-word-en" class="word-en">love</span>
+              </button>
+            </div>
+
             <!-- 読み込み中スピナー -->
             <div id="slide-loading" class="slide-loading-overlay hidden">
               <div class="spinner"></div>
@@ -209,6 +224,18 @@
               <span id="slide-page-indicator" class="page-indicator">
                 スライド <span class="ui-en">/ Slide</span> <strong>1</strong> <span class="total">/ 1</span>
               </span>
+            </div>
+
+            <!-- 音声発音コントロール -->
+            <div class="slide-controls-audio">
+              <button id="btn-speak-slide" class="icon-btn speak-btn hidden" title="発音を聞く (Sキー) / Listen to pronunciation (S key)">
+                <span class="speak-icon">🔊</span>
+                <span class="speak-text">発音を聞く <span class="btn-en">/ Listen</span></span>
+              </button>
+              <button id="btn-speech-speed" class="icon-btn speed-btn hidden" title="再生速度を変更 (0.8x / 1.0x) / Toggle speed">
+                <span id="speed-icon">🐢</span>
+                <span id="speed-label">0.8x</span>
+              </button>
             </div>
 
             <div class="slide-controls-center">
@@ -290,10 +317,12 @@
   <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
   <script src="lib/pdf.min.js"></script>
   <!-- レッスンデータ -->
-  <script src="js/lessons-data.js?v=1.1"></script>
+  <script src="js/lessons-data.js?v=1.2"></script>
+  <!-- 発音辞書データ -->
+  <script src="js/speech-data.js?v=1.2"></script>
   <!-- スライドビューワーコントローラー -->
-  <script src="js/viewer.js?v=1.1"></script>
+  <script src="js/viewer.js?v=1.2"></script>
   <!-- メインアプリケーションロジック -->
-  <script src="js/app.js?v=1.1"></script>
+  <script src="js/app.js?v=1.2"></script>
 </body>
 </html>

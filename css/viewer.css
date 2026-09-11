@@ -351,4 +351,165 @@
   .slide-stage-wrapper { min-height: 320px; }
   .slide-progress-track { width: 90px; }
   .video-section { padding: 18px; }
+  .floating-audio-pill { top: 10px; right: 10px; }
+  .word-en { display: none; }
+  .speak-btn .speak-text { display: none; }
+}
+
+/* ============================================================
+   日本語音声発音機能スタイル (Web Speech API)
+   ============================================================ */
+.slide-controls-audio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.speak-btn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+  border-color: #34d399 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s ease;
+}
+
+.speak-btn:hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.45);
+}
+
+.speed-btn {
+  font-size: 0.8rem !important;
+  padding: 6px 10px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #cbd5e1 !important;
+  border-radius: 20px !important;
+}
+
+.speed-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* フローティング発音クイックバッジ (スライド右上) */
+.floating-audio-pill {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 15;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.floating-audio-pill.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+.floating-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 30px;
+  padding: 8px 16px;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-speak-btn:hover {
+  background: rgba(16, 185, 129, 0.95);
+  border-color: #6ee7b7;
+  transform: scale(1.04);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
+}
+
+.audio-speaker-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.word-romaji {
+  font-family: var(--font-en, sans-serif);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.02em;
+}
+
+.floating-speak-btn:hover .word-romaji {
+  color: #ffffff;
+}
+
+.word-kana {
+  font-family: var(--font-display, inherit);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.word-en {
+  font-family: var(--font-en, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #94a3b8;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  padding-left: 8px;
+}
+
+.floating-speak-btn:hover .word-en {
+  color: #e2e8f0;
+}
+
+/* 音声再生中アニメーション */
+.audio-sound-wave {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+}
+
+.wave-bar {
+  width: 3px;
+  height: 4px;
+  background: #34d399;
+  border-radius: 2px;
+  animation: soundWave 0.7s ease-in-out infinite alternate;
+}
+
+.wave-bar:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.wave-bar:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes soundWave {
+  0% { height: 4px; }
+  100% { height: 16px; }
+}
+
+.is-speaking .audio-sound-wave {
+  display: inline-flex;
+}
+
+.is-speaking .audio-speaker-icon {
+  display: none;
+}
+
+.is-speaking.speak-btn {
+  animation: speakPulse 1s infinite alternate;
+}
+
+@keyframes speakPulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+  100% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
 }
