@@ -390,20 +390,25 @@ class SlideViewer {
     if (window.speechSynthesis.paused) {
       window.speechSynthesis.resume();
     }
-    // 既存音声をキャンセル
-    window.speechSynthesis.cancel();
+    // 発音中のものがあればキャンセル
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+    }
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     utterance.rate = this.speechRate || 1.0;
 
-    // 日本語音声を動的に取得・適用
-    if (!this.jaVoice && window.speechSynthesis.getVoices) {
+    // 日本語音声を動的に取得・適用（端末内蔵ローカル音声を優先）
+    if (window.speechSynthesis.getVoices) {
       const voices = window.speechSynthesis.getVoices();
-      this.jaVoice = voices.find(v => v.lang === "ja-JP" || v.lang === "ja_JP" || v.lang.startsWith("ja")) || null;
-    }
-    if (this.jaVoice) {
-      utterance.voice = this.jaVoice;
+      if (voices && voices.length > 0) {
+        const jaVoices = voices.filter(v => v.lang === "ja-JP" || v.lang === "ja_JP" || v.lang.startsWith("ja"));
+        const preferredVoice = jaVoices.find(v => v.localService) || jaVoices[0] || null;
+        if (preferredVoice) {
+          utterance.voice = preferredVoice;
+        }
+      }
     }
 
     this.setSpeakingState(true);
@@ -413,14 +418,11 @@ class SlideViewer {
     };
 
     utterance.onerror = (e) => {
-      console.error("Speech synthesis error:", e);
+      console.warn("Speech synthesis error or interrupted:", e);
       this.setSpeakingState(false);
     };
 
-    // Chrome/Safari で cancel 直後の speak が無視される問題への安全対策
-    setTimeout(() => {
-      window.speechSynthesis.speak(utterance);
-    }, 15);
+    window.speechSynthesis.speak(utterance);
   }
 
   setSpeakingState(speaking) {
