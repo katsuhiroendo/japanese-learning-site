@@ -68,6 +68,7 @@ READING_FIXES = {
 # 例: '001_02' の 4ページ: 'oi' (nephew) は「甥」（低-高の平板アクセント）
 SLIDE_TEXT_OVERRIDES = {
     ('001_02', 4): '甥',       # oi (nephew) -> 低-高 (平板アクセント)
+    ('001_02', 15): '教会',    # kyookai (church) -> kyo↓ o↑ ka↑ i↑ (平板アクセント)
 }
 
 def clean_for_speech(text):
