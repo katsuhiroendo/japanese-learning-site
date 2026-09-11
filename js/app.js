@@ -313,10 +313,10 @@
       if (lesson.materials && lesson.materials.length > 0) {
         lesson.materials.forEach((m) => {
           if (m.pages > 0) {
-            const isFc = (m.badge === "単語カード" || m.badge === "FC");
+            const isFc = (m.badge === "フラッシュカード" || m.badge === "単語カード" || m.badge === "FC");
             const chipClass = isFc ? "material-chip fc" : "material-chip slide";
             const chipIcon = isFc ? "🎴" : "📖";
-            const chipJa = isFc ? "単語" : "本編";
+            const chipJa = isFc ? "フラッシュカード" : "本編";
             const chipEn = isFc ? "FC" : "Slide";
             materialsHtml += `<span class="${chipClass}">${chipIcon} ${chipJa} <span class="ui-en">/ ${chipEn}</span> ${m.pages}p</span>`;
           }

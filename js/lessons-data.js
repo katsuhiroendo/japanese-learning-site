@@ -23,10 +23,10 @@ const LESSONS_DATA = [
       },
       {
         id: "fc",
-        title: "🎴 単語フラッシュカード <span class=\"ui-en\">/ Flashcards</span> (153p)",
+        title: "🎴 フラッシュカード <span class=\"ui-en\">/ Flashcards</span> (153p)",
         file: "slides/001_02_japanese_writing_fc.pdf",
         pages: 153,
-        badge: "単語カード"
+        badge: "フラッシュカード"
       }
     ],
     video: {
@@ -58,10 +58,10 @@ const LESSONS_DATA = [
       },
       {
         id: "fc",
-        title: "🎴 単語フラッシュカード <span class=\"ui-en\">/ Flashcards</span> (76p)",
+        title: "🎴 フラッシュカード <span class=\"ui-en\">/ Flashcards</span> (76p)",
         file: "slides/002_02_lesson1_aisatsu_fc.pdf",
         pages: 76,
-        badge: "単語カード"
+        badge: "フラッシュカード"
       }
     ],
     video: {
