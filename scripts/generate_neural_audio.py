@@ -81,7 +81,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 54): '脈',         # myaku (pulse) -> may↓ ku↑ (平板アクセント)
     ('001_02', 58): '欲',         # yoku (desire) -> yho↓ ku↑ (平板アクセント)
     ('001_02', 59): '雇う',       # yatou (to employ) -> ya↓ to↑ u↓ (中高アクセント)
-    ('001_02', 64): '楽',         # raku (easy) -> ra↓ ku↑ (平板アクセント)
+    ('001_02', 64): 'ラク',       # raku (easy) -> ra↓ ku↑ (低-高平板アクセント確定)
     ('001_02', 66): '留守',       # rusu (absence) -> ru↑ su↓ (頭高アクセント)
     ('001_02', 68): '六',         # roku (six) -> ro↓ ku↑ (平板アクセント)
     ('001_02', 75): '割り当て',   # wariate (assignment) -> wa↓ ri↑ a↑ te↑ (平板アクセント)
