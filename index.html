@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ENDOおじさんのにほんご学習ポータル | ENDO Nihongo Learning Portal</title>
   <meta name="description" content="洗練されたデザインで学ぶ日本語教育ポータル。100レッスン対応のパワーポイントスライド資料と解説動画で楽しく学べます。">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <!-- Google Fonts: Zen Maru Gothic, Noto Sans JP, Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +16,7 @@
 
   <!-- スタイルシート -->
   <link rel="stylesheet" href="css/style.css?v=2.0">
-  <link rel="stylesheet" href="css/viewer.css?v=2.9">
+  <link rel="stylesheet" href="css/viewer.css?v=3.0">
 </head>
 <body>
 
@@ -196,8 +199,8 @@
               ＞
             </button>
 
-            <!-- フローティング発音クイックバッジ (スライド右上) -->
-            <div id="floating-audio-pill" class="floating-audio-pill hidden">
+            <!-- フローティング発音クイックバッジ (スライド右上: フラッシュカード専用) -->
+            <div id="floating-audio-pill" class="floating-audio-pill hidden" style="display: none;">
               <button id="btn-floating-speak" class="floating-speak-btn" title="クリックまたはSキーで発音 / Click or press S to listen">
                 <span class="audio-sound-wave">
                   <span class="wave-bar"></span>
@@ -226,8 +229,8 @@
               </span>
             </div>
 
-            <!-- 音声発音コントロール -->
-            <div id="slide-controls-audio" class="slide-controls-audio">
+            <!-- 音声発音コントロール (フラッシュカード専用) -->
+            <div id="slide-controls-audio" class="slide-controls-audio hidden" style="display: none;">
               <button id="btn-speak-slide" class="icon-btn speak-btn" title="発音を聞く (Sキー) / Listen to pronunciation (S key)">
                 <span class="speak-icon">🔊</span>
                 <span class="speak-text">発音を聞く <span class="btn-en">/ Listen</span></span>
@@ -321,12 +324,12 @@
   <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
   <script src="lib/pdf.min.js"></script>
   <!-- レッスンデータ -->
-  <script src="js/lessons-data.js?v=2.9"></script>
+  <script src="js/lessons-data.js?v=3.0"></script>
   <!-- 発音辞書データ -->
-  <script src="js/speech-data.js?v=2.9"></script>
+  <script src="js/speech-data.js?v=3.0"></script>
   <!-- スライドビューワーコントローラー -->
-  <script src="js/viewer.js?v=2.9"></script>
+  <script src="js/viewer.js?v=3.0"></script>
   <!-- メインアプリケーションロジック -->
-  <script src="js/app.js?v=2.9"></script>
+  <script src="js/app.js?v=3.0"></script>
 </body>
 </html>

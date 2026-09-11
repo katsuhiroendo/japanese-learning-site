@@ -51,6 +51,16 @@ class SlideViewer {
     } catch (e) {}
     this.autoPlayTimer = null;
 
+    // 初期状態は非表示（フラッシュカード読み込み時にのみ表示）
+    if (this.audioControls) {
+      this.audioControls.classList.add("hidden");
+      this.audioControls.style.display = "none";
+    }
+    if (this.floatingAudioPill) {
+      this.floatingAudioPill.classList.add("hidden");
+      this.floatingAudioPill.style.display = "none";
+    }
+
     this.initEvents();
   }
 
@@ -448,7 +458,7 @@ class SlideViewer {
     // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
     if (item.audio) {
       try {
-        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=2.9';
+        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=3.0';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
@@ -613,9 +623,11 @@ class SlideViewer {
     if (!this.isFlashcard()) {
       if (this.audioControls) {
         this.audioControls.classList.add("hidden");
+        this.audioControls.style.display = "none";
       }
       if (this.floatingAudioPill) {
         this.floatingAudioPill.classList.add("hidden");
+        this.floatingAudioPill.style.display = "none";
       }
       this.stopCurrentAudio();
       return;
@@ -624,6 +636,10 @@ class SlideViewer {
     // フラッシュカードの場合：音声コントロールバーを表示
     if (this.audioControls) {
       this.audioControls.classList.remove("hidden");
+      this.audioControls.style.display = "flex";
+    }
+    if (this.floatingAudioPill) {
+      this.floatingAudioPill.style.display = "";
     }
 
     const item = this.getCurrentSpeechItem();
