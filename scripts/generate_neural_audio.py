@@ -102,6 +102,15 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 116): '反対！',    # hantai (opposite) -> ha↓ n↑ ta↑ i↑ (平板アクセント)
     ('001_02', 117): '弁当',      # bentoo (lunch box) -> be↓ n↑ to↑ o↓ (中高アクセント)
     ('001_02', 118): '管理',      # kanri (administration) -> ka↑ n↓ ri↓ (頭高アクセント)
+    ('001_02', 120): '漢字は、',  # kanji (Chinese character) -> ka↓ n↑ ji↑ (平板アクセント)
+    ('001_02', 126): '環境',      # kankyoo (environment) -> ka↓ n↑ kyo↑ o↑ (平板アクセント)
+    ('001_02', 137): '切手',      # kitte (stamp) -> ki↓ tte↑ (尾高/平板アクセント)
+    ('001_02', 139): '飴は、',    # ame (candy) -> a↓ me↑ (尾高/平板アクセント)
+    ('001_02', 141): 'アサ',      # asa (hemp) -> a↓ sa↑ (平板アクセント)
+    ('001_02', 142): '席',        # seki (seat) -> se↑ ki↓ (頭高アクセント)
+    ('001_02', 145): '厚さ！',    # atsusa (thickness) -> a↓ tsu↑ sa↑ (平板アクセント)
+    ('001_02', 146): '主人',      # shujin (husband) -> shu↑ ji↓ n↓ (頭高アクセント)
+    ('001_02', 148): '問いは、',  # toi (question) -> to↓ i↑ (平板アクセント)
 }
 
 def clean_for_speech(text):
