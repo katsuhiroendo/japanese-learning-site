@@ -40,6 +40,16 @@ class SlideViewer {
     this.jaVoice = null;
     this.currentAudio = null;
 
+    // 自動音声再生 (ページ送り時の自動発音)
+    this.autoplayBtn = document.getElementById("btn-speech-autoplay");
+    this.autoplayIcon = document.getElementById("autoplay-icon");
+    this.autoplayLabel = document.getElementById("autoplay-label");
+    this.autoPlayAudio = false;
+    try {
+      this.autoPlayAudio = localStorage.getItem("slide_audio_autoplay") === "true";
+    } catch (e) {}
+    this.autoPlayTimer = null;
+
     this.initEvents();
   }
 
@@ -63,6 +73,12 @@ class SlideViewer {
     // 再生速度切替ボタン
     if (this.speedBtn) {
       this.speedBtn.addEventListener("click", () => this.toggleSpeechSpeed());
+    }
+
+    // 自動音声再生 (ページめくり時) 切替ボタン
+    if (this.autoplayBtn) {
+      this.autoplayBtn.addEventListener("click", () => this.toggleAutoPlay());
+      this.updateAutoPlayUI();
     }
 
     // 日本語音声エンジンのロード
@@ -113,6 +129,9 @@ class SlideViewer {
       } else if (e.key === "v" || e.key === "V") {
         e.preventDefault();
         this.toggleSpeechSpeed();
+      } else if (e.key === "a" || e.key === "A") {
+        e.preventDefault();
+        this.toggleAutoPlay();
       }
     });
 
@@ -275,6 +294,11 @@ class SlideViewer {
     }
 
     this.updateControls();
+
+    // ページ切り替え時の自動音声再生 (有効時)
+    if (this.autoPlayAudio) {
+      this.triggerAutoPlay();
+    }
   }
 
   queueRenderPage(num) {
@@ -286,6 +310,10 @@ class SlideViewer {
   }
 
   stopCurrentAudio() {
+    if (this.autoPlayTimer) {
+      clearTimeout(this.autoPlayTimer);
+      this.autoPlayTimer = null;
+    }
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
@@ -393,7 +421,7 @@ class SlideViewer {
     // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
     if (item.audio) {
       try {
-        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=2.6';
+        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=2.7';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
@@ -499,6 +527,53 @@ class SlideViewer {
     }
     if (this.currentAudio && !this.currentAudio.paused) {
       this.currentAudio.playbackRate = this.speechRate;
+    }
+  }
+
+  /**
+   * ページ切り替え時の自動発音トリガー
+   */
+  triggerAutoPlay() {
+    if (this.autoPlayTimer) {
+      clearTimeout(this.autoPlayTimer);
+    }
+    // スライドが描画されてから自然な間隔（120ms）を空けて発音
+    this.autoPlayTimer = setTimeout(() => {
+      this.autoPlayTimer = null;
+      this.speakCurrentPage();
+    }, 120);
+  }
+
+  /**
+   * 自動音声再生のON/OFF切り替え
+   */
+  toggleAutoPlay() {
+    this.autoPlayAudio = !this.autoPlayAudio;
+    try {
+      localStorage.setItem("slide_audio_autoplay", String(this.autoPlayAudio));
+    } catch (e) {}
+    this.updateAutoPlayUI();
+
+    // ONにした際、まだ再生中でなければ現在のスライドをすぐに発音
+    if (this.autoPlayAudio && !this.isSpeaking) {
+      this.speakCurrentPage();
+    }
+  }
+
+  /**
+   * 自動音声再生ボタンのUI更新
+   */
+  updateAutoPlayUI() {
+    if (!this.autoplayBtn) return;
+    this.autoplayBtn.classList.toggle("is-active", this.autoPlayAudio);
+    if (this.autoPlayAudio) {
+      if (this.autoplayIcon) this.autoplayIcon.textContent = "🔊";
+      if (this.autoplayLabel) this.autoplayLabel.innerHTML = `自動再生: ON <span class="btn-en">/ Auto</span>`;
+      this.autoplayBtn.title = "スライド切り替え時の自動発音: 有効 (Aキーで無効化) / Auto-play: ON (A key)";
+    } else {
+      if (this.autoplayIcon) this.autoplayIcon.textContent = "🔈";
+      if (this.autoplayLabel) this.autoplayLabel.innerHTML = `自動再生: OFF <span class="btn-en">/ Auto</span>`;
+      this.autoplayBtn.title = "スライド切り替え時の自動発音: 無効 (Aキーで有効化) / Auto-play: OFF (A key)";
     }
   }
 

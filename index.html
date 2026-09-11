@@ -232,9 +232,13 @@
                 <span class="speak-icon">🔊</span>
                 <span class="speak-text">発音を聞く <span class="btn-en">/ Listen</span></span>
               </button>
-              <button id="btn-speech-speed" class="icon-btn speed-btn" title="再生速度を変更 (0.8x / 1.0x) / Toggle speed">
+              <button id="btn-speech-speed" class="icon-btn speed-btn" title="再生速度を変更 (0.8x / 1.0x, Vキー) / Toggle speed (V key)">
                 <span id="speed-icon">🐢</span>
                 <span id="speed-label">0.8x</span>
+              </button>
+              <button id="btn-speech-autoplay" class="icon-btn autoplay-btn" title="スライド切り替え時に音声を自動再生 (Aキー) / Auto-play pronunciation on slide change (A key)">
+                <span id="autoplay-icon">🔈</span>
+                <span id="autoplay-label">自動再生: OFF <span class="btn-en">/ Auto</span></span>
               </button>
             </div>
 
@@ -317,12 +321,12 @@
   <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
   <script src="lib/pdf.min.js"></script>
   <!-- レッスンデータ -->
-  <script src="js/lessons-data.js?v=2.6"></script>
+  <script src="js/lessons-data.js?v=2.7"></script>
   <!-- 発音辞書データ -->
-  <script src="js/speech-data.js?v=2.6"></script>
+  <script src="js/speech-data.js?v=2.7"></script>
   <!-- スライドビューワーコントローラー -->
-  <script src="js/viewer.js?v=2.6"></script>
+  <script src="js/viewer.js?v=2.7"></script>
   <!-- メインアプリケーションロジック -->
-  <script src="js/app.js?v=2.6"></script>
+  <script src="js/app.js?v=2.7"></script>
 </body>
 </html>

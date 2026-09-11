@@ -434,6 +434,36 @@
   color: #64748b !important;
 }
 
+.autoplay-btn {
+  font-size: 0.8rem !important;
+  padding: 6px 12px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #cbd5e1 !important;
+  border-radius: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  transition: all 0.2s ease !important;
+}
+
+.autoplay-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.autoplay-btn.is-active {
+  background: rgba(16, 185, 129, 0.25) !important;
+  border-color: rgba(16, 185, 129, 0.7) !important;
+  color: #6ee7b7 !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3) !important;
+}
+
+.autoplay-btn.is-active:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.38) !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
 /* フローティング発音クイックバッジ (スライド右上) */
 .floating-audio-pill {
   position: absolute;
