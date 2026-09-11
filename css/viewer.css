@@ -67,6 +67,7 @@
   align-items: center;
   gap: 3px;
   margin-left: 4px;
+  pointer-events: none;
 }
 
 .material-tab-btn.active .tab-audio-tag {

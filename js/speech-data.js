@@ -4,7 +4,7 @@
  * 本編スライドおよびフラッシュカードに対応
  */
 
-const SPEECH_DATA = {
+var SPEECH_DATA = {
   "slides/001_01_japanese_writing.pdf": {
     "1": {
       "romaji": "Nihongo no moji to hatsuon",
@@ -1459,3 +1459,10 @@ const SPEECH_DATA = {
     }
   }
 };
+
+if (typeof window !== "undefined") {
+  window.SPEECH_DATA = SPEECH_DATA;
+}
+if (typeof globalThis !== "undefined") {
+  globalThis.SPEECH_DATA = SPEECH_DATA;
+}

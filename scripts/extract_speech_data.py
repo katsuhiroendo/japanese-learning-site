@@ -248,7 +248,14 @@ def main():
  * 本編スライドおよびフラッシュカードに対応
  */
 
-const SPEECH_DATA = {json.dumps(speech_database, ensure_ascii=False, indent=2)};
+var SPEECH_DATA = {json.dumps(speech_database, ensure_ascii=False, indent=2)};
+
+if (typeof window !== "undefined") {{
+  window.SPEECH_DATA = SPEECH_DATA;
+}}
+if (typeof globalThis !== "undefined") {{
+  globalThis.SPEECH_DATA = SPEECH_DATA;
+}}
 """
 
     with open(out_js, 'w', encoding='utf-8') as f:

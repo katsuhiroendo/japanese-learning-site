@@ -199,6 +199,7 @@ class SlideViewer {
       this.pdfDoc = await loadingTask.promise;
       this.totalPages = this.pdfDoc.numPages;
       this.currentPage = Math.min(Math.max(1, initialPage), this.totalPages);
+      this.updateSpeechUI();
 
       await this.renderPage(this.currentPage);
       this.setLoading(false);
@@ -337,10 +338,33 @@ class SlideViewer {
    * 現在のスライドに対応する発音データの取得
    */
   getCurrentSpeechItem() {
-    if (!window.SPEECH_DATA || !this.currentPdfUrl) return null;
+    const dict = (typeof SPEECH_DATA !== "undefined" ? SPEECH_DATA : null) || 
+                 (typeof window !== "undefined" && window.SPEECH_DATA ? window.SPEECH_DATA : null) || 
+                 null;
+    if (!dict || !this.currentPdfUrl) return null;
+
+    // パスを正規化（./slides/... やクエリ/ハッシュを吸収）
     const cleanUrl = this.currentPdfUrl.replace(/^\.\//, "").split("?")[0].split("#")[0];
-    const pdfData = window.SPEECH_DATA[cleanUrl] || window.SPEECH_DATA[this.currentPdfUrl];
-    return pdfData ? pdfData[this.currentPage] : null;
+    
+    // 1. 完全一致
+    let pdfData = dict[cleanUrl] || dict[this.currentPdfUrl];
+    
+    // 2. キー末尾一致（ファイル名による検索）
+    if (!pdfData) {
+      const filename = cleanUrl.split("/").pop();
+      for (const key of Object.keys(dict)) {
+        if (key.endsWith(filename)) {
+          pdfData = dict[key];
+          break;
+        }
+      }
+    }
+
+    if (!pdfData) return null;
+
+    // 3. ページ番号（数値・文字列両方で取得）
+    const pageNum = this.currentPage;
+    return pdfData[pageNum] || pdfData[String(pageNum)] || null;
   }
 
   /**
@@ -353,19 +377,31 @@ class SlideViewer {
     }
 
     const item = this.getCurrentSpeechItem();
-    if (!item) return;
+    if (!item) {
+      console.warn("No speech item for page:", this.currentPage, this.currentPdfUrl);
+      return;
+    }
 
     // 読み上げテキスト（ひらがな優先、なければローマ字）
     const text = item.kana || item.romaji;
     if (!text) return;
 
+    // ブラウザの音声キューが一時停止している場合の復帰
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
     // 既存音声をキャンセル
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
-    utterance.rate = this.speechRate;
+    utterance.rate = this.speechRate || 1.0;
 
+    // 日本語音声を動的に取得・適用
+    if (!this.jaVoice && window.speechSynthesis.getVoices) {
+      const voices = window.speechSynthesis.getVoices();
+      this.jaVoice = voices.find(v => v.lang === "ja-JP" || v.lang === "ja_JP" || v.lang.startsWith("ja")) || null;
+    }
     if (this.jaVoice) {
       utterance.voice = this.jaVoice;
     }
@@ -376,11 +412,15 @@ class SlideViewer {
       this.setSpeakingState(false);
     };
 
-    utterance.onerror = () => {
+    utterance.onerror = (e) => {
+      console.error("Speech synthesis error:", e);
       this.setSpeakingState(false);
     };
 
-    window.speechSynthesis.speak(utterance);
+    // Chrome/Safari で cancel 直後の speak が無視される問題への安全対策
+    setTimeout(() => {
+      window.speechSynthesis.speak(utterance);
+    }, 15);
   }
 
   setSpeakingState(speaking) {
