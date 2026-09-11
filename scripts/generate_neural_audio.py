@@ -88,6 +88,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 68): '六',         # roku (six) -> ro↓ ku↑ (平板アクセント)
     ('001_02', 75): '割り当て',   # wariate (assignment) -> wa↓ ri↑ a↑ te↑ (平板アクセント)
     ('001_02', 76): '割り当てる', # wariateru (to allot) -> wa↓ ri↑ a↑ te↑ ru↓ (中高アクセント)
+    ('001_02', 77): '若い',       # wakai (young) -> wa↓ ka↑ i↓ (中高アクセント確定)
     ('001_02', 83): '逆',         # gyaku (contrary) -> gya↓ ku↑ (平板アクセント)
     ('001_02', 86): '在庫',       # zaiko (stock) -> za↓ i↑ ko↑ (平板アクセント)
     ('001_02', 87): '事務所',     # jimusho (office) -> ji↓ mu↑ sho↓ (中高アクセント)
