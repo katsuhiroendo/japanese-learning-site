@@ -91,6 +91,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 87): '事務所',     # jimusho (office) -> ji↓ mu↑ sho↓ (中高アクセント)
     ('001_02', 93): '定規',       # joogi (ruler) -> jo↑ o↓ gi↓ (頭高アクセント)
     ('001_02', 94): '出汁',       # dashi (soup stock) -> da↓ shi↑ (平板アクセント)
+    ('001_02', 95): '出る',       # deru (to go out) -> de↑ ru↓ (頭高アクセント)
 }
 
 def clean_for_speech(text):
