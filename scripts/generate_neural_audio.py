@@ -113,10 +113,9 @@ async def main():
     sem = asyncio.Semaphore(6)
     tasks = []
 
+    # 音声生成対象はフラッシュカードのみ
     folder_map = {
-        "slides/001_01_japanese_writing.pdf": "001_01",
         "slides/001_02_japanese_writing_fc.pdf": "001_02",
-        "slides/002_01_lesson1_aisatsu.pdf": "002_01",
         "slides/002_02_lesson1_aisatsu_fc.pdf": "002_02"
     }
 

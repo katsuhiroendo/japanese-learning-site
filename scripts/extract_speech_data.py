@@ -218,24 +218,15 @@ def main():
 
     speech_database = {}
 
-    # 1. #001 本編スライド (24p)
-    data_001_main = get_001_main_speech()
-    speech_database["slides/001_01_japanese_writing.pdf"] = data_001_main
-    print(f"Generated {len(data_001_main)} items for #001 Main")
-
-    # 2. #001 フラッシュカード (153p)
+    # 音声発音機能はフラッシュカード専用
+    # 1. #001 フラッシュカード (153p)
     if os.path.exists(file_001_fc):
         print(f"Reading {file_001_fc}...")
         data_001_fc = extract_001_fc(file_001_fc)
         speech_database["slides/001_02_japanese_writing_fc.pdf"] = data_001_fc
         print(f"Extracted {len(data_001_fc)} items for #001 FC")
 
-    # 3. #002 本編スライド (36p)
-    data_002_main = get_002_main_speech()
-    speech_database["slides/002_01_lesson1_aisatsu.pdf"] = data_002_main
-    print(f"Generated {len(data_002_main)} items for #002 Main")
-
-    # 4. #002 フラッシュカード (76p)
+    # 2. #002 フラッシュカード (76p)
     if os.path.exists(file_002_fc):
         print(f"Reading {file_002_fc}...")
         data_002_fc = extract_002_fc(file_002_fc)

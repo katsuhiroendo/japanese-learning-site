@@ -16,7 +16,7 @@ const LESSONS_DATA = [
     materials: [
       {
         id: "main",
-        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (24p) <span class=\"tab-audio-tag\">🔊音声</span>",
+        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (24p)",
         file: "slides/001_01_japanese_writing.pdf",
         pages: 24,
         badge: "本編"
@@ -51,7 +51,7 @@ const LESSONS_DATA = [
     materials: [
       {
         id: "main",
-        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (36p) <span class=\"tab-audio-tag\">🔊音声</span>",
+        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (36p)",
         file: "slides/002_01_lesson1_aisatsu.pdf",
         pages: 36,
         badge: "本編"

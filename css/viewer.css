@@ -386,6 +386,10 @@
   gap: 8px;
 }
 
+.slide-controls-audio.hidden {
+  display: none !important;
+}
+
 .speak-btn {
   background: linear-gradient(135deg, #10b981, #059669) !important;
   color: #ffffff !important;

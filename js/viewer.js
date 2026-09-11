@@ -24,7 +24,8 @@ class SlideViewer {
     this.currentScale = 1.5;
     this.currentPdfUrl = "";
 
-    // 音声発音機能プロパティ
+    // 音声発音機能プロパティ（フラッシュカード専用）
+    this.audioControls = document.getElementById("slide-controls-audio") || document.querySelector(".slide-controls-audio");
     this.speakBtn = document.getElementById("btn-speak-slide");
     this.speedBtn = document.getElementById("btn-speech-speed");
     this.speedLabel = document.getElementById("speed-label");
@@ -124,14 +125,20 @@ class SlideViewer {
       } else if (e.key === "f" || e.key === "F") {
         this.toggleFullscreen();
       } else if (e.key === "s" || e.key === "S") {
-        e.preventDefault();
-        this.speakCurrentPage();
+        if (this.isFlashcard()) {
+          e.preventDefault();
+          this.speakCurrentPage();
+        }
       } else if (e.key === "v" || e.key === "V") {
-        e.preventDefault();
-        this.toggleSpeechSpeed();
+        if (this.isFlashcard()) {
+          e.preventDefault();
+          this.toggleSpeechSpeed();
+        }
       } else if (e.key === "a" || e.key === "A") {
-        e.preventDefault();
-        this.toggleAutoPlay();
+        if (this.isFlashcard()) {
+          e.preventDefault();
+          this.toggleAutoPlay();
+        }
       }
     });
 
@@ -187,7 +194,13 @@ class SlideViewer {
    * PDFドキュメントの読み込み
    */
   async loadPdf(url, initialPage = 1) {
+    this.stopCurrentAudio();
+    if (this.autoPlayTimer) {
+      clearTimeout(this.autoPlayTimer);
+      this.autoPlayTimer = null;
+    }
     this.currentPdfUrl = url;
+    this.updateSpeechUI();
     this.setLoading(true);
 
     if (this.downloadBtn) {
@@ -373,9 +386,21 @@ class SlideViewer {
   }
 
   /**
-   * 現在のスライドに対応する発音データの取得
+   * 現在のスライドがフラッシュカードかどうかを判定
+   * 音声発音機能はフラッシュカード専用です（本編スライドには提供されません）
+   */
+  isFlashcard() {
+    if (!this.currentPdfUrl) return false;
+    const url = this.currentPdfUrl.toLowerCase();
+    return url.includes("_fc.pdf") || url.includes("_fc") || url.includes("flashcard");
+  }
+
+  /**
+   * 現在のスライドに対応する発音データの取得 (フラッシュカードのみ)
    */
   getCurrentSpeechItem() {
+    if (!this.isFlashcard()) return null;
+
     const dict = (typeof SPEECH_DATA !== "undefined" ? SPEECH_DATA : null) || 
                  (typeof window !== "undefined" && window.SPEECH_DATA ? window.SPEECH_DATA : null) || 
                  null;
@@ -406,10 +431,12 @@ class SlideViewer {
   }
 
   /**
-   * 現在のスライドの日本語を発音再生
+   * 現在のスライドの日本語を発音再生（フラッシュカード専用）
    * 高品質スタジオMP3音源を優先再生し、フォールバックとしてWeb Speech APIを使用
    */
   speakCurrentPage() {
+    if (!this.isFlashcard()) return;
+
     const item = this.getCurrentSpeechItem();
     if (!item) {
       console.warn("No speech item for page:", this.currentPage, this.currentPdfUrl);
@@ -421,7 +448,7 @@ class SlideViewer {
     // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
     if (item.audio) {
       try {
-        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=2.8';
+        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=2.9';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
@@ -531,9 +558,11 @@ class SlideViewer {
   }
 
   /**
-   * ページ切り替え時の自動発音トリガー
+   * ページ切り替え時の自動発音トリガー (フラッシュカード専用)
    */
   triggerAutoPlay() {
+    if (!this.isFlashcard() || !this.autoPlayAudio) return;
+
     if (this.autoPlayTimer) {
       clearTimeout(this.autoPlayTimer);
     }
@@ -545,9 +574,11 @@ class SlideViewer {
   }
 
   /**
-   * 自動音声再生のON/OFF切り替え
+   * 自動音声再生のON/OFF切り替え (フラッシュカード専用)
    */
   toggleAutoPlay() {
+    if (!this.isFlashcard()) return;
+
     this.autoPlayAudio = !this.autoPlayAudio;
     try {
       localStorage.setItem("slide_audio_autoplay", String(this.autoPlayAudio));
@@ -578,6 +609,23 @@ class SlideViewer {
   }
 
   updateSpeechUI() {
+    // フラッシュカード以外（本編スライド等）：音声UIを完全に非表示にし、音声再生を停止
+    if (!this.isFlashcard()) {
+      if (this.audioControls) {
+        this.audioControls.classList.add("hidden");
+      }
+      if (this.floatingAudioPill) {
+        this.floatingAudioPill.classList.add("hidden");
+      }
+      this.stopCurrentAudio();
+      return;
+    }
+
+    // フラッシュカードの場合：音声コントロールバーを表示
+    if (this.audioControls) {
+      this.audioControls.classList.remove("hidden");
+    }
+
     const item = this.getCurrentSpeechItem();
     if (item) {
       // 発音データあり：ボタン有効化
@@ -589,6 +637,10 @@ class SlideViewer {
       if (this.speedBtn) {
         this.speedBtn.classList.remove("hidden", "disabled");
         this.speedBtn.disabled = false;
+      }
+      if (this.autoplayBtn) {
+        this.autoplayBtn.classList.remove("hidden", "disabled");
+        this.autoplayBtn.disabled = false;
       }
       if (this.floatingAudioPill) {
         this.floatingAudioPill.classList.remove("hidden");
