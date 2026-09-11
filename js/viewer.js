@@ -130,7 +130,7 @@ class SlideViewer {
 
     if (!url) {
       this.setLoading(false);
-      this.showPlaceholder("スライド資料は現在準備中です。");
+      this.showPlaceholder("スライド資料は準備中です / Slides Coming Soon");
       return;
     }
 
@@ -159,7 +159,7 @@ class SlideViewer {
     } catch (err) {
       console.error("PDF読み込みエラー:", err);
       this.setLoading(false);
-      this.showPlaceholder("スライドの読み込みに失敗しました。ファイルが存在するか確認してください。");
+      this.showPlaceholder("スライドの読み込みに失敗しました / Failed to load slides");
     }
   }
 
@@ -268,7 +268,7 @@ class SlideViewer {
 
     // ページ番号表示
     if (this.pageIndicator) {
-      this.pageIndicator.innerHTML = `スライド <strong>${this.currentPage}</strong> <span class="total">/ ${this.totalPages}</span>`;
+      this.pageIndicator.innerHTML = `スライド <span class="ui-en">/ Slide</span> <strong>${this.currentPage}</strong> <span class="total">/ ${this.totalPages}</span>`;
     }
 
     // 進捗バー更新

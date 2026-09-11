@@ -16,14 +16,14 @@ const LESSONS_DATA = [
     materials: [
       {
         id: "main",
-        title: "📖 本編スライド (24p)",
+        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (24p)",
         file: "slides/001_01_japanese_writing.pdf",
         pages: 24,
         badge: "本編"
       },
       {
         id: "fc",
-        title: "🎴 単語フラッシュカード (153p)",
+        title: "🎴 単語フラッシュカード <span class=\"ui-en\">/ Flashcards</span> (153p)",
         file: "slides/001_02_japanese_writing_fc.pdf",
         pages: 153,
         badge: "単語カード"
@@ -51,14 +51,14 @@ const LESSONS_DATA = [
     materials: [
       {
         id: "main",
-        title: "📖 本編スライド (36p)",
+        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (36p)",
         file: "slides/002_01_lesson1_aisatsu.pdf",
         pages: 36,
         badge: "本編"
       },
       {
         id: "fc",
-        title: "🎴 単語フラッシュカード (76p)",
+        title: "🎴 単語フラッシュカード <span class=\"ui-en\">/ Flashcards</span> (76p)",
         file: "slides/002_02_lesson1_aisatsu_fc.pdf",
         pages: 76,
         badge: "単語カード"
@@ -86,7 +86,7 @@ const LESSONS_DATA = [
     materials: [
       {
         id: "main",
-        title: "📖 本編スライド (準備中)",
+        title: "📖 本編スライド <span class=\"ui-en\">/ Main</span> (準備中)",
         file: "",
         pages: 0,
         badge: "準備中"

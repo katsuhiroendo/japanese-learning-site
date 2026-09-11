@@ -24,6 +24,22 @@
   // スライドビューワーインスタンス
   let slideViewer = null;
 
+  // 日英表記対応マップ
+  const LEVEL_MAP = {
+    "入門": "入門 <span class=\"tag-en\">/ Beginner</span>",
+    "初級": "初級 <span class=\"tag-en\">/ Elementary</span>",
+    "初級1": "初級1 <span class=\"tag-en\">/ Elementary 1</span>",
+    "初級2": "初級2 <span class=\"tag-en\">/ Elementary 2</span>",
+    "中級": "中級 <span class=\"tag-en\">/ Intermediate</span>"
+  };
+
+  const CATEGORY_MAP = {
+    "文字・発音": "文字・発音 <span class=\"tag-en\">/ Writing & Sounds</span>",
+    "基本会話": "基本会話 <span class=\"tag-en\">/ Conversation</span>",
+    "文法": "文法 <span class=\"tag-en\">/ Grammar</span>",
+    "実用会話": "実用会話 <span class=\"tag-en\">/ Practical</span>"
+  };
+
   // --- DOM要素 ---
   const el = {
     homeView: document.getElementById("home-view"),
@@ -263,8 +279,14 @@
       el.lessonsGrid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; background: #ffffff; border-radius: 16px; border: 1px dashed #cbd5e1;">
           <div style="font-size: 2.5rem; margin-bottom: 12px;">🔍</div>
-          <h3 style="font-size: 1.2rem; color: #1e293b; margin-bottom: 8px;">条件に一致するレッスンが見つかりませんでした</h3>
-          <p style="color: #64748b; font-size: 0.95rem;">検索ワードを変更するか、フィルター条件を「すべて」に戻してお試しください。</p>
+          <h3 style="font-size: 1.2rem; color: #1e293b; margin-bottom: 8px;">
+            条件に一致するレッスンが見つかりませんでした<br>
+            <span style="font-size: 0.95rem; font-weight: 500; color: #64748b;">No lessons found matching your search</span>
+          </h3>
+          <p style="color: #64748b; font-size: 0.92rem; line-height: 1.6;">
+            検索ワードを変更するか、フィルター条件を「すべて」に戻してお試しください。<br>
+            <span style="font-size: 0.85rem; color: #94a3b8;">Try adjusting keywords or resetting filters to "All".</span>
+          </p>
         </div>
       `;
       renderPagination(0);
@@ -291,25 +313,33 @@
       if (lesson.materials && lesson.materials.length > 0) {
         lesson.materials.forEach((m) => {
           if (m.pages > 0) {
-            materialsHtml += `<span class="material-chip slide">${m.badge || "スライド"} ${m.pages}p</span>`;
+            const isFc = (m.badge === "単語カード" || m.badge === "FC");
+            const chipClass = isFc ? "material-chip fc" : "material-chip slide";
+            const chipIcon = isFc ? "🎴" : "📖";
+            const chipJa = isFc ? "単語" : "本編";
+            const chipEn = isFc ? "FC" : "Slide";
+            materialsHtml += `<span class="${chipClass}">${chipIcon} ${chipJa} <span class="ui-en">/ ${chipEn}</span> ${m.pages}p</span>`;
           }
         });
       }
 
       if (lesson.video && (lesson.video.youtubeId || lesson.video.youtubeUrl)) {
-        materialsHtml += `<span class="material-chip video">🎥 動画あり</span>`;
+        materialsHtml += `<span class="material-chip video">🎥 動画あり <span class="ui-en">/ Video</span></span>`;
       }
 
       if (!materialsHtml) {
-        materialsHtml = `<span class="material-chip">スライド準備中</span>`;
+        materialsHtml = `<span class="material-chip">準備中 <span class="ui-en">/ Coming Soon</span></span>`;
       }
+
+      const levelHtml = LEVEL_MAP[lesson.level] || `${lesson.level || "初級"}`;
+      const catHtml = CATEGORY_MAP[lesson.category] || `${lesson.category}`;
 
       card.innerHTML = `
         <div class="card-top-row">
           <span class="lesson-number-badge ${!lesson.available ? "badge-coming-soon" : ""}">${lesson.number}</span>
           <div class="card-meta-tags">
-            <span class="level-tag">${lesson.level || "初級"}</span>
-            <span class="category-tag">${lesson.category}</span>
+            <span class="level-tag">${levelHtml}</span>
+            <span class="category-tag">${catHtml}</span>
           </div>
         </div>
         <h2 class="card-title">${lesson.title}</h2>
@@ -323,11 +353,11 @@
         </div>
         <div class="card-footer-row">
           <button class="btn-open-lesson" aria-label="${lesson.title}のレッスンを開く">
-            <span>レッスンを開く</span>
+            <span>レッスンを開く <span class="btn-en">/ Open</span></span>
             <span>→</span>
           </button>
-          <button class="btn-toggle-done ${isDone ? "checked" : ""}" title="完了状態を切り替え" aria-label="学習完了チェック">
-            <span>${isDone ? "✔ 完了済" : "未完了"}</span>
+          <button class="btn-toggle-done ${isDone ? "checked" : ""}" title="完了状態を切り替え / Toggle completion" aria-label="学習完了チェック">
+            <span>${isDone ? "✔ 完了済 / Done" : "未完了 / To Do"}</span>
           </button>
         </div>
       `;
@@ -447,8 +477,8 @@
 
     // レッスン情報反映
     if (el.detailNumberBadge) el.detailNumberBadge.textContent = lesson.number;
-    if (el.detailLevelTag) el.detailLevelTag.textContent = lesson.level || "初級";
-    if (el.detailCatTag) el.detailCatTag.textContent = lesson.category;
+    if (el.detailLevelTag) el.detailLevelTag.innerHTML = LEVEL_MAP[lesson.level] || `${lesson.level || "初級"}`;
+    if (el.detailCatTag) el.detailCatTag.innerHTML = CATEGORY_MAP[lesson.category] || `${lesson.category}`;
     if (el.detailTitle) el.detailTitle.textContent = lesson.title;
     if (el.detailSubtitle) el.detailSubtitle.textContent = lesson.subtitle || "";
     if (el.detailDesc) {
@@ -559,10 +589,10 @@
       el.btnPrevLesson.disabled = (currentIndex <= 0);
       if (currentIndex > 0) {
         const prev = state.lessons[currentIndex - 1];
-        el.btnPrevLesson.innerHTML = `<span>◀</span> ${prev.number}`;
+        el.btnPrevLesson.innerHTML = `<span>◀</span> ${prev.number} <span class="ui-en">Prev</span>`;
         el.btnPrevLesson.title = prev.title;
       } else {
-        el.btnPrevLesson.innerHTML = `<span>◀</span> 前のレッスン`;
+        el.btnPrevLesson.innerHTML = `<span>◀</span> 前へ <span class="ui-en">/ Prev</span>`;
       }
     }
 
@@ -570,10 +600,10 @@
       el.btnNextLesson.disabled = (currentIndex >= state.lessons.length - 1);
       if (currentIndex < state.lessons.length - 1) {
         const next = state.lessons[currentIndex + 1];
-        el.btnNextLesson.innerHTML = `${next.number} <span>▶</span>`;
+        el.btnNextLesson.innerHTML = `<span class="ui-en">Next</span> ${next.number} <span>▶</span>`;
         el.btnNextLesson.title = next.title;
       } else {
-        el.btnNextLesson.innerHTML = `次のレッスン <span>▶</span>`;
+        el.btnNextLesson.innerHTML = `次へ <span class="ui-en">/ Next</span> <span>▶</span>`;
       }
     }
   }
@@ -609,10 +639,10 @@
     const textSpan = el.detailToggleDone.querySelector(".text");
     if (isDone) {
       el.detailToggleDone.classList.add("checked");
-      if (textSpan) textSpan.textContent = "学習完了済み";
+      if (textSpan) textSpan.innerHTML = `学習完了済み <span class="btn-en">/ Completed</span>`;
     } else {
       el.detailToggleDone.classList.remove("checked");
-      if (textSpan) textSpan.textContent = "完了にする";
+      if (textSpan) textSpan.innerHTML = `完了にする <span class="btn-en">/ Mark as Done</span>`;
     }
   }
 
