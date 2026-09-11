@@ -75,7 +75,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 19): '少し。',  # sukoshi (a little) -> su↓ ko↑ shi↓ (中高アクセント)
     ('001_02', 46): 'ヒュー・ヒュー', # hyuuhyuu (wind sound) -> hyu↑ u↓ hyu↓ u↓ (頭高アクセント)
     ('001_02', 47): '評価',       # hyooka (evaluation) -> hyo↑ o↓ ka↓ (頭高アクセント)
-    ('001_02', 48): '豆！',       # mame (bean) -> ma↓ me↑ (低-高アクセント確定)
+    ('001_02', 48): '豆が、',     # mame (bean) -> ma↓ me↑ (低-高アクセント調音トリミング)
     ('001_02', 50): '桃',         # momo (peach) -> mo↓ mo↑ (平板アクセント)
     ('001_02', 53): '目標',       # mokuhyoo (aim) -> mo↓ ku↑ hyo↑ o↑ (平板アクセント)
     ('001_02', 54): '脈',         # myaku (pulse) -> may↓ ku↑ (平板アクセント)
