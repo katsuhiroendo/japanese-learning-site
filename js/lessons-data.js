@@ -31,8 +31,8 @@ const LESSONS_DATA = [
     ],
     video: {
       title: "【解説動画】日本語の文字（ひらがな・カタカナ・漢字）と発音のきほん",
-      youtubeId: "wCYvsEgZqjk",
-      youtubeUrl: "https://youtu.be/wCYvsEgZqjk",
+      youtubeId: "mOERMe1QgrE",
+      youtubeUrl: "https://youtu.be/mOERMe1QgrE",
       description: "口の開け方・舌の位置・音の長さなど、ネイティブの発音とリズムを動画で一緒に確認しましょう。",
       descriptionEn: "Watch this video to practice mouth shapes, tongue positions, sound lengths, and natural speech rhythm with native pronunciation."
     },
