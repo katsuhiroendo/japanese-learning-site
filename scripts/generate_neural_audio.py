@@ -74,6 +74,23 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 17): '吸う。',  # suu (to smoke) -> su↓ u↑ (動詞終止形・平板アクセント)
     ('001_02', 19): '少し。',  # sukoshi (a little) -> su↓ ko↑ shi↓ (中高アクセント)
     ('001_02', 46): 'ヒュー・ヒュー', # hyuuhyuu (wind sound) -> hyu↑ u↓ hyu↓ u↓ (頭高アクセント)
+    ('001_02', 47): '評価',       # hyooka (evaluation) -> hyo↑ o↓ ka↓ (頭高アクセント)
+    ('001_02', 48): '豆',         # mame (bean) -> ma↓ me↑ (尾高/平板アクセント)
+    ('001_02', 50): '桃',         # momo (peach) -> mo↓ mo↑ (平板アクセント)
+    ('001_02', 53): '目標',       # mokuhyoo (aim) -> mo↓ ku↑ hyo↑ o↑ (平板アクセント)
+    ('001_02', 54): '脈',         # myaku (pulse) -> may↓ ku↑ (平板アクセント)
+    ('001_02', 58): '欲',         # yoku (desire) -> yho↓ ku↑ (平板アクセント)
+    ('001_02', 59): '雇う',       # yatou (to employ) -> ya↓ to↑ u↓ (中高アクセント)
+    ('001_02', 64): '楽',         # raku (easy) -> ra↓ ku↑ (平板アクセント)
+    ('001_02', 66): '留守',       # rusu (absence) -> ru↑ su↓ (頭高アクセント)
+    ('001_02', 68): '六',         # roku (six) -> ro↓ ku↑ (平板アクセント)
+    ('001_02', 75): '割り当て',   # wariate (assignment) -> wa↓ ri↑ a↑ te↑ (平板アクセント)
+    ('001_02', 76): '割り当てる', # wariateru (to allot) -> wa↓ ri↑ a↑ te↑ ru↓ (中高アクセント)
+    ('001_02', 83): '逆',         # gyaku (contrary) -> gya↓ ku↑ (平板アクセント)
+    ('001_02', 86): '在庫',       # zaiko (stock) -> za↓ i↑ ko↑ (平板アクセント)
+    ('001_02', 87): '事務所',     # jimusho (office) -> ji↓ mu↑ sho↓ (中高アクセント)
+    ('001_02', 93): '定規',       # joogi (ruler) -> jo↑ o↓ gi↓ (頭高アクセント)
+    ('001_02', 94): '出汁',       # dashi (soup stock) -> da↓ shi↑ (平板アクセント)
 }
 
 def clean_for_speech(text):
