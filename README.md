@@ -4,6 +4,8 @@
 
 100レッスン規模のカリキュラムに対応し、洗練された「和モダン × 親しみやすさ」をテーマにしたデザインを採用しています。GitHub Pagesなどの無料ホスティングサービスで簡単に世界中へ公開できます。
 
+**🌐 公開URL**: [https://katsuhiroendo.github.io/japanese-learning-site/](https://katsuhiroendo.github.io/japanese-learning-site/)
+
 ---
 
 ## ✨ 主な特長と機能
