@@ -95,6 +95,13 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 98): '出鱈目！',    # detarame (nonsense) -> de↓ ta↑ ra↑ me↑ (低-高-高-高 平板アクセント)
     ('001_02', 100): '罰',        # batsu (punishment) -> ba↑ tsu↓ (頭高アクセント)
     ('001_02', 101): 'ビール',     # biiru (beer) -> bi↑ i↓ ru↓ (頭高アクセント)
+    ('001_02', 105): '三百',      # sanbyaku (three hundred) -> sa↑ n↑ bya↓ ku↓ (頭高アクセント)
+    ('001_02', 108): 'パン',      # pan (bread) -> pa↑ n↓ (頭高アクセント)
+    ('001_02', 109): 'プール',    # puuru (pool) -> pu↑ u↓ ru↓ (頭高アクセント)
+    ('001_02', 113): 'ぺだる、',   # pedaru (pedal) -> pe↓ da↑ ru↑ (平板アクセント)
+    ('001_02', 116): '反対！',    # hantai (opposite) -> ha↓ n↑ ta↑ i↑ (平板アクセント)
+    ('001_02', 117): '弁当',      # bentoo (lunch box) -> be↓ n↑ to↑ o↓ (中高アクセント)
+    ('001_02', 118): '管理',      # kanri (administration) -> ka↑ n↓ ri↓ (頭高アクセント)
 }
 
 def clean_for_speech(text):
