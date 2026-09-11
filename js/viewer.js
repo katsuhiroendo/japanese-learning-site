@@ -106,9 +106,12 @@ class SlideViewer {
         this.nextPage();
       } else if (e.key === "f" || e.key === "F") {
         this.toggleFullscreen();
-      } else if (e.key === "s" || e.key === "S" || e.key === "v" || e.key === "V") {
+      } else if (e.key === "s" || e.key === "S") {
         e.preventDefault();
         this.speakCurrentPage();
+      } else if (e.key === "v" || e.key === "V") {
+        e.preventDefault();
+        this.toggleSpeechSpeed();
       }
     });
 
@@ -335,7 +338,8 @@ class SlideViewer {
    */
   getCurrentSpeechItem() {
     if (!window.SPEECH_DATA || !this.currentPdfUrl) return null;
-    const pdfData = window.SPEECH_DATA[this.currentPdfUrl];
+    const cleanUrl = this.currentPdfUrl.replace(/^\.\//, "").split("?")[0].split("#")[0];
+    const pdfData = window.SPEECH_DATA[cleanUrl] || window.SPEECH_DATA[this.currentPdfUrl];
     return pdfData ? pdfData[this.currentPage] : null;
   }
 
@@ -404,8 +408,16 @@ class SlideViewer {
   updateSpeechUI() {
     const item = this.getCurrentSpeechItem();
     if (item) {
-      if (this.speakBtn) this.speakBtn.classList.remove("hidden");
-      if (this.speedBtn) this.speedBtn.classList.remove("hidden");
+      // 発音データあり：ボタン有効化
+      if (this.speakBtn) {
+        this.speakBtn.classList.remove("hidden", "disabled");
+        this.speakBtn.disabled = false;
+        this.speakBtn.title = `このスライドの日本語を発音 (Sキー) / Listen: ${item.kana || item.romaji}`;
+      }
+      if (this.speedBtn) {
+        this.speedBtn.classList.remove("hidden", "disabled");
+        this.speedBtn.disabled = false;
+      }
       if (this.floatingAudioPill) {
         this.floatingAudioPill.classList.remove("hidden");
       }
@@ -419,9 +431,21 @@ class SlideViewer {
         this.floatingWordEn.textContent = item.en || "";
       }
     } else {
-      if (this.speakBtn) this.speakBtn.classList.add("hidden");
-      if (this.speedBtn) this.speedBtn.classList.add("hidden");
-      if (this.floatingAudioPill) this.floatingAudioPill.classList.add("hidden");
+      // 発音データなし：コントロールバーは残して非活性表示（消さずに存在を明示）
+      if (this.speakBtn) {
+        this.speakBtn.classList.remove("hidden");
+        this.speakBtn.classList.add("disabled");
+        this.speakBtn.disabled = true;
+        this.speakBtn.title = "このスライドには音声データがありません / No pronunciation audio for this slide";
+      }
+      if (this.speedBtn) {
+        this.speedBtn.classList.remove("hidden");
+        this.speedBtn.classList.add("disabled");
+        this.speedBtn.disabled = true;
+      }
+      if (this.floatingAudioPill) {
+        this.floatingAudioPill.classList.add("hidden");
+      }
     }
   }
 

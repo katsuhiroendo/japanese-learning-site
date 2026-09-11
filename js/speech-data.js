@@ -1,9 +1,132 @@
 /**
  * 日本語音声発音データ辞書 (Web Speech API 用)
  * 自動生成スクリプト: scripts/extract_speech_data.py
+ * 本編スライドおよびフラッシュカードに対応
  */
 
 const SPEECH_DATA = {
+  "slides/001_01_japanese_writing.pdf": {
+    "1": {
+      "romaji": "Nihongo no moji to hatsuon",
+      "kana": "にほんごのもじとはつおん",
+      "en": "Japanese Writing Systems & Pronunciation"
+    },
+    "2": {
+      "romaji": "Kanji",
+      "kana": "かんじ",
+      "en": "Kanji"
+    },
+    "3": {
+      "romaji": "Hiragana",
+      "kana": "ひらがな",
+      "en": "Hiragana"
+    },
+    "4": {
+      "romaji": "Katakana",
+      "kana": "カタカナ",
+      "en": "Katakana"
+    },
+    "5": {
+      "romaji": "Roomaji",
+      "kana": "ローマじ",
+      "en": "Roomaji"
+    },
+    "6": {
+      "romaji": "a, i, u, e, o",
+      "kana": "あ、い、う、え、お",
+      "en": "Basic syllables (a, i, u, e, o)"
+    },
+    "7": {
+      "romaji": "Chouon",
+      "kana": "ちょうおん",
+      "en": "Long Vowels"
+    },
+    "8": {
+      "romaji": "Haifun",
+      "kana": "ハイフン",
+      "en": "Hyphens"
+    },
+    "9": {
+      "romaji": "Aposutorofi",
+      "kana": "アポストロフィ",
+      "en": "Apostrophes"
+    },
+    "10": {
+      "romaji": "Hatsuon 'N'",
+      "kana": "はつおん「ん」",
+      "en": "'N' Sound"
+    },
+    "11": {
+      "romaji": "Sokuon",
+      "kana": "そくおん",
+      "en": "Double Consonants"
+    },
+    "12": {
+      "romaji": "Ryakugo",
+      "kana": "りゃくご",
+      "en": "Abbreviations"
+    },
+    "13": {
+      "romaji": "Boin: a, i, u, e, o",
+      "kana": "ぼいん：あ、い、う、え、お",
+      "en": "5 Vowels"
+    },
+    "14": {
+      "romaji": "Museika: i, u",
+      "kana": "むせいか：い、う",
+      "en": "Voiceless Vowels"
+    },
+    "15": {
+      "romaji": "Han-boin Y: ya, yu, yo",
+      "kana": "はんぼいんワイ：や、ゆ、よ",
+      "en": "Semi-vowel Y"
+    },
+    "16": {
+      "romaji": "Han-boin W: wa",
+      "kana": "はんぼいんダブリュー：わ",
+      "en": "Semi-vowel W"
+    },
+    "17": {
+      "romaji": "Shiin",
+      "kana": "しいん",
+      "en": "Consonants"
+    },
+    "18": {
+      "romaji": "Shiin no hatsuon gaido",
+      "kana": "しいんのはつおんガイド",
+      "en": "Japanese Pronunciation Guide"
+    },
+    "19": {
+      "romaji": "Fu",
+      "kana": "ふ",
+      "en": "Fu Sound"
+    },
+    "20": {
+      "romaji": "Ra, ri, ru, re, ro",
+      "kana": "ら、り、る、れ、ろ",
+      "en": "R Sound"
+    },
+    "21": {
+      "romaji": "Ga, gi, gu, ge, go",
+      "kana": "が、ぎ、ぐ、げ、ご",
+      "en": "G Sound"
+    },
+    "22": {
+      "romaji": "Za, ji, zu, ze, zo",
+      "kana": "ざ、じ、ず、ぜ、ぞ",
+      "en": "Z Sound"
+    },
+    "23": {
+      "romaji": "Sokuon: kk, ss, tt, pp",
+      "kana": "そくおん：っ",
+      "en": "Double Consonant Sounds"
+    },
+    "24": {
+      "romaji": "Akusento to rizumu",
+      "kana": "アクセントとリズム",
+      "en": "Accent and Rhythm"
+    }
+  },
   "slides/001_02_japanese_writing_fc.pdf": {
     "1": {
       "romaji": "ai",
@@ -769,6 +892,188 @@ const SPEECH_DATA = {
       "romaji": "obaasan",
       "kana": "おばあさん",
       "en": "grandmother"
+    }
+  },
+  "slides/002_01_lesson1_aisatsu.pdf": {
+    "1": {
+      "romaji": "AISATSU",
+      "kana": "あいさつ",
+      "en": "greetings"
+    },
+    "2": {
+      "romaji": "Ohayoo gozai-masu. Konnichiwa. Konbanwa. Oyasumi nasai. Sayoonara.",
+      "kana": "おはようございます。こんにちは。こんばんは。おやすみなさい。さようなら。",
+      "en": "Five everyday greetings"
+    },
+    "3": {
+      "romaji": "Konnichiwa. Hajimemashite. Watashi wa Seeko desu. Doozo yoroshiku.",
+      "kana": "こんにちは。はじめまして。わたしはせいこです。どうぞよろしく。",
+      "en": "Conversation (1/2)"
+    },
+    "4": {
+      "romaji": "Jon desu. Doozo yoroshiku. Anata wa Nihon-jin desu ka? Hai, Nihon-jin desu. Jon-san wa Amerika-jin desu ka? Iie, Amerika-jin de wa ari-masen. Oosutoraria-jin desu.",
+      "kana": "ジョンです。どうぞよろしく。あなたはにほんじんですか？はい、にほんじんです。ジョンさんはアメリカじんですか？いいえ、アメリカじんではありません。オーストラリアじんです。",
+      "en": "Conversation (2/2)"
+    },
+    "5": {
+      "romaji": "hajimemashite, watashi, Seeko, desu, doozo yoroshiku, Jon, anata, Nihon-jin, Amerika-jin, Oosutoraria-jin",
+      "kana": "はじめまして、わたし、せいこ、です、どうぞよろしく、ジョン、あなた、にほんじん、アメリカじん、オーストラリアじん",
+      "en": "New Vocabulary"
+    },
+    "6": {
+      "romaji": "Kaisetsu",
+      "kana": "かいせつ",
+      "en": "Explanations"
+    },
+    "7": {
+      "romaji": "Konnichiwa. O-genki desu ka? Hai, genki desu.",
+      "kana": "こんにちは。おげんきですか？はい、げんきです。",
+      "en": "Hello. How are you?"
+    },
+    "8": {
+      "romaji": "Hajimemashite.",
+      "kana": "はじめまして。",
+      "en": "How do you do?"
+    },
+    "9": {
+      "romaji": "Hajimemashite. Doozo yoroshiku.",
+      "kana": "はじめまして。どうぞよろしく。",
+      "en": "Nice to meet you."
+    },
+    "10": {
+      "romaji": "Honda-san, Kazuo-san, Honda Kazuo-san",
+      "kana": "ほんださん、かずおさん、ほんだかずおさん",
+      "en": "-San (honorific title)"
+    },
+    "11": {
+      "romaji": "Bumpoo",
+      "kana": "ぶんぽう",
+      "en": "Grammar"
+    },
+    "12": {
+      "romaji": "Watashi wa Seeko desu. Jon-san wa Oosutoraria-jin desu.",
+      "kana": "わたしはせいこです。ジョンさんはオーストラリアじんです。",
+      "en": "Word Order (Predicate at end)"
+    },
+    "13": {
+      "romaji": "Watashi wa Seeko desu. Anata wa Amerika-jin desu ka?",
+      "kana": "わたしはせいこです。あなたはアメリカじんですか？",
+      "en": "Word Order: Verbs don't change"
+    },
+    "14": {
+      "romaji": "Watashi wa Jon desu. Seeko-san wa Nihon-jin desu.",
+      "kana": "わたしはジョンです。せいこさんはにほんじんです。",
+      "en": "Particle 'Wa' (Topic)"
+    },
+    "15": {
+      "romaji": "Watashi wa Nihon-jin de wa ari-masen. Jon-san wa Amerika-jin de wa ari-masen.",
+      "kana": "わたしはにほんじんではありません。ジョンさんはアメリカじんではありません。",
+      "en": "Negative: de wa ari-masen"
+    },
+    "16": {
+      "romaji": "Anata wa Amerika-jin desu ka? Seeko-san wa Nihon-jin desu ka?",
+      "kana": "あなたはアメリカじんですか？せいこさんはにほんじんですか？",
+      "en": "Particle 'Ka' (Question)"
+    },
+    "17": {
+      "romaji": "Renshuu mondai",
+      "kana": "れんしゅうもんだい",
+      "en": "Exercises"
+    },
+    "18": {
+      "romaji": "Watashi wa Jon desu. Watashi wa Jon de wa ari-masen.",
+      "kana": "わたしはジョンです。わたしはジョンではありません。",
+      "en": "Exercise 1 (1) & (3)"
+    },
+    "19": {
+      "romaji": "Watashi-tachi wa Nihon-jin desu. Anata-tachi wa Nihon-jin desu.",
+      "kana": "わたしたちはにほんじんです。あなたたちはにほんじんです。",
+      "en": "Exercise 1 (2) & (4)"
+    },
+    "20": {
+      "romaji": "Anata wa Seeko-san desu ka? Hai, Seeko desu. Iie, Seeko de wa ari-masen.",
+      "kana": "あなたはせいこさんですか？はい、せいこです。いいえ、せいこではありません。",
+      "en": "Exercise 1 (5) + Exercise 2"
+    },
+    "21": {
+      "romaji": "Watashi wa Nihon-jin desu. Seeko-san wa Amerika-jin de wa ari-masen.",
+      "kana": "わたしはにほんじんです。せいこさんはアメリカじんではありません。",
+      "en": "Exercise 3 (Repetition)"
+    },
+    "22": {
+      "romaji": "Anata wa Oosutoraria-jin desu. Jon-san wa Oosutoraria-jin desu.",
+      "kana": "あなたはオーストラリアじんです。ジョンさんはオーストラリアじんです。",
+      "en": "Exercise 4 (1)"
+    },
+    "23": {
+      "romaji": "Anata wa Amerika-jin desu ka? Seeko-san wa Amerika-jin desu ka?",
+      "kana": "あなたはアメリカじんですか？せいこさんはアメリカじんですか？",
+      "en": "Exercise 4 (2)"
+    },
+    "24": {
+      "romaji": "Watashi wa Chuugoku-jin de wa ari-masen.",
+      "kana": "わたしはちゅうごくじんではありません。",
+      "en": "Exercise 4 (3)"
+    },
+    "25": {
+      "romaji": "Watashi wa Chuugoku-jin desu. Jon-san wa Chuugoku-jin desu.",
+      "kana": "わたしはちゅうごくじんです。ジョンさんはちゅうごくじんです。",
+      "en": "Exercise 4 (4)"
+    },
+    "26": {
+      "romaji": "Ohayoo gozai-masu. Hajimemashite. Watashi wa Seeko desu. Doozo yoroshiku.",
+      "kana": "おはようございます。はじめまして。わたしはせいこです。どうぞよろしく。",
+      "en": "Exercise 5 (Self-introduction)"
+    },
+    "27": {
+      "romaji": "ohayoo gozai-masu, konnichiwa, konbanwa, oyasumi nasai, sayoonara, watashi, anata, Jon-san, Seeko-san, Nihon-jin",
+      "kana": "おはようございます、こんにちは、こんばんは、おやすみなさい、さようなら、わたし、あなた、ジョンさん、せいこさん、にほんじん",
+      "en": "Pronunciation Drill A"
+    },
+    "28": {
+      "romaji": "Watashi wa Nihon-jin desu. Jon-san wa Oosutoraria-jin desu. Watashi wa Nihon-jin de wa ari-masen.",
+      "kana": "わたしはにほんじんです。ジョンさんはオーストラリアじんです。わたしはにほんじんではありません。",
+      "en": "Pronunciation Drill B"
+    },
+    "29": {
+      "romaji": "Bangai-hen: suuji, tsuki, jikoku",
+      "kana": "ばんがいへん：すうじ、つき、じこく",
+      "en": "Extra Study: Numbers, months, and time"
+    },
+    "30": {
+      "romaji": "ichi, ni, san, shi, go, roku, shichi, hachi, kyuu, juu, hyaku",
+      "kana": "いち、に、さん、し、ご、ろく、しち、はち、きゅう、じゅう、ひゃく",
+      "en": "Numbers 1-10 & 100"
+    },
+    "31": {
+      "romaji": "ichi-gatsu, ni-gatsu, san-gatsu, shi-gatsu, go-gatsu, roku-gatsu, shichi-gatsu, hachi-gatsu, ku-gatsu, juu-gatsu, juu-ichi-gatsu, juu-ni-gatsu",
+      "kana": "いちがつ、にがつ、さんがつ、しがつ、ごがつ、ろくがつ、しちがつ、はちがつ、くがつ、じゅうがつ、じゅういちがつ、じゅうにがつ",
+      "en": "Months 1-12"
+    },
+    "32": {
+      "romaji": "ichi-ji, ni-ji, san-ji, yo-ji, go-ji, roku-ji, shichi-ji, hachi-ji, ku-ji, juu-ji, juu-ichi-ji, juu-ni-ji",
+      "kana": "いちじ、にじ、さんじ、よじ、ごじ、ろくじ、しちじ、はちじ、くじ、じゅうじ、じゅういちじ、じゅうにじ",
+      "en": "Time: 1-12 o'clock"
+    },
+    "33": {
+      "romaji": "roku-juu-nana, ni-juu-go, yon-juu-san, nana-juu-ni, juu-roku, go-juu-ichi, hyaku",
+      "kana": "ろくじゅうなな、にじゅうご、よんじゅうさん、ななじゅうに、じゅうろく、ごじゅういち、ひゃく",
+      "en": "Practice: Numbers"
+    },
+    "34": {
+      "romaji": "shi-gatsu, juu-ni-gatsu, shichi-gatsu, ni-gatsu, juu-ichi-gatsu, juu-gatsu",
+      "kana": "しがつ、じゅうにがつ、しちがつ、にがつ、じゅういちがつ、じゅうがつ",
+      "en": "Practice: Months"
+    },
+    "35": {
+      "romaji": "yo-ji, juu-ichi-ji, go-ji, shichi-ji, san-ji, ichi-ji, ni-ji, hachi-ji, juu-ji, juu-ni-ji",
+      "kana": "よじ、じゅういちじ、ごじ、しちじ、さんじ、いちじ、にじ、はちじ、じゅうじ、じゅうにじ",
+      "en": "Practice: Time"
+    },
+    "36": {
+      "romaji": "O-jigi",
+      "kana": "おじぎ",
+      "en": "Bow (Japanese etiquette)"
     }
   },
   "slides/002_02_lesson1_aisatsu_fc.pdf": {
