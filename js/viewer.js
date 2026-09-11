@@ -40,6 +40,9 @@ class SlideViewer {
     this.isSpeaking = false;
     this.jaVoice = null;
     this.currentAudio = null;
+    this.overlayLayer = document.getElementById("slide-overlay-layer");
+    this.currentSequentialTimer = null;
+    this.currentSequentialIndex = -1;
 
     // 自動音声再生 (ページ送り時の自動発音)
     this.autoplayBtn = document.getElementById("btn-speech-autoplay");
@@ -337,6 +340,11 @@ class SlideViewer {
       clearTimeout(this.autoPlayTimer);
       this.autoPlayTimer = null;
     }
+    if (this.currentSequentialTimer) {
+      clearTimeout(this.currentSequentialTimer);
+      this.currentSequentialTimer = null;
+    }
+    this.currentSequentialIndex = -1;
     if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
@@ -344,6 +352,9 @@ class SlideViewer {
     }
     if (window.speechSynthesis && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
       window.speechSynthesis.cancel();
+    }
+    if (this.overlayLayer) {
+      this.overlayLayer.querySelectorAll(".slide-overlay-audio-btn").forEach(b => b.classList.remove("is-speaking"));
     }
     this.setSpeakingState(false);
   }
@@ -452,12 +463,18 @@ class SlideViewer {
       return;
     }
 
+    // 複数文（ドリル）スライドの場合は順番に連続再生
+    if (item.items && Array.isArray(item.items) && item.items.length > 0) {
+      this.speakSequential(item.items);
+      return;
+    }
+
     this.stopCurrentAudio();
 
     // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
     if (item.audio) {
       try {
-        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=4.7';
+        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=4.8';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
@@ -539,6 +556,188 @@ class SlideViewer {
     };
 
     window.speechSynthesis.speak(utterance);
+  }
+
+  /**
+   * 複数文（ドリル）スライドの各文を順番に連続再生
+   */
+  speakSequential(items) {
+    this.stopCurrentAudio();
+    if (!items || items.length === 0) return;
+
+    this.setSpeakingState(true);
+
+    const playStep = (index) => {
+      if (index >= items.length) {
+        this.setSpeakingState(false);
+        this.currentSequentialIndex = -1;
+        if (this.overlayLayer) {
+          this.overlayLayer.querySelectorAll(".slide-overlay-audio-btn").forEach(b => b.classList.remove("is-speaking"));
+        }
+        return;
+      }
+
+      this.currentSequentialIndex = index;
+      const subItem = items[index];
+
+      // スライド上の該当ボタンをアクティブ表示
+      if (this.overlayLayer) {
+        this.overlayLayer.querySelectorAll(".slide-overlay-audio-btn").forEach(b => {
+          b.classList.toggle("is-speaking", b.dataset.index === String(index));
+        });
+      }
+
+      // フローティングバーの表示テキスト更新
+      if (this.floatingWordRomaji) this.floatingWordRomaji.textContent = subItem.romaji || "";
+      if (this.floatingWordKana) this.floatingWordKana.textContent = subItem.kana ? `(${subItem.kana})` : "";
+      if (this.floatingWordEn) this.floatingWordEn.textContent = subItem.label ? `[${subItem.label}]` : "";
+
+      try {
+        const audioUrl = subItem.audio + (subItem.audio.includes('?') ? '&' : '?') + 'v=4.8';
+        const audio = new Audio(audioUrl);
+        this.currentAudio = audio;
+        audio.playbackRate = this.speechRate || 1.0;
+
+        audio.onended = () => {
+          this.currentAudio = null;
+          if (this.overlayLayer) {
+            const curBtn = this.overlayLayer.querySelector(`.slide-overlay-audio-btn[data-index="${index}"]`);
+            if (curBtn) curBtn.classList.remove("is-speaking");
+          }
+          // 次の文の再生まで600msの間隔を空ける
+          this.currentSequentialTimer = setTimeout(() => {
+            this.currentSequentialTimer = null;
+            playStep(index + 1);
+          }, 600);
+        };
+
+        audio.onerror = (err) => {
+          console.warn("Sequential audio error:", err);
+          this.currentAudio = null;
+          if (this.overlayLayer) {
+            const curBtn = this.overlayLayer.querySelector(`.slide-overlay-audio-btn[data-index="${index}"]`);
+            if (curBtn) curBtn.classList.remove("is-speaking");
+          }
+          this.currentSequentialTimer = setTimeout(() => {
+            this.currentSequentialTimer = null;
+            playStep(index + 1);
+          }, 400);
+        };
+
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.warn("Sequential audio play rejected:", err);
+            this.stopCurrentAudio();
+          });
+        }
+      } catch (err) {
+        console.warn("Sequential audio creation error:", err);
+        this.stopCurrentAudio();
+      }
+    };
+
+    playStep(0);
+  }
+
+  /**
+   * 指定インデックスの個別文のみを発音再生
+   */
+  speakSingleItem(index) {
+    this.stopCurrentAudio();
+
+    const item = this.getCurrentSpeechItem();
+    if (!item || !item.items || !item.items[index]) return;
+
+    const subItem = item.items[index];
+    this.setSpeakingState(true);
+
+    if (this.overlayLayer) {
+      const btn = this.overlayLayer.querySelector(`.slide-overlay-audio-btn[data-index="${index}"]`);
+      if (btn) btn.classList.add("is-speaking");
+    }
+
+    if (this.floatingWordRomaji) this.floatingWordRomaji.textContent = subItem.romaji || "";
+    if (this.floatingWordKana) this.floatingWordKana.textContent = subItem.kana ? `(${subItem.kana})` : "";
+    if (this.floatingWordEn) this.floatingWordEn.textContent = subItem.label ? `[${subItem.label}]` : "";
+
+    try {
+      const audioUrl = subItem.audio + (subItem.audio.includes('?') ? '&' : '?') + 'v=4.8';
+      const audio = new Audio(audioUrl);
+      this.currentAudio = audio;
+      audio.playbackRate = this.speechRate || 1.0;
+
+      audio.onended = () => {
+        this.setSpeakingState(false);
+        this.currentAudio = null;
+        if (this.overlayLayer) {
+          const btn = this.overlayLayer.querySelector(`.slide-overlay-audio-btn[data-index="${index}"]`);
+          if (btn) btn.classList.remove("is-speaking");
+        }
+      };
+
+      audio.onerror = (e) => {
+        console.warn("Single item audio error:", e);
+        this.setSpeakingState(false);
+        this.currentAudio = null;
+        if (this.overlayLayer) {
+          const btn = this.overlayLayer.querySelector(`.slide-overlay-audio-btn[data-index="${index}"]`);
+          if (btn) btn.classList.remove("is-speaking");
+        }
+      };
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.warn("Single audio play rejected:", err);
+          this.setSpeakingState(false);
+          if (this.overlayLayer) {
+            const btn = this.overlayLayer.querySelector(`.slide-overlay-audio-btn[data-index="${index}"]`);
+            if (btn) btn.classList.remove("is-speaking");
+          }
+        });
+      }
+    } catch (err) {
+      console.warn("Single audio creation error:", err);
+      this.setSpeakingState(false);
+    }
+  }
+
+  /**
+   * スライド上に各文の音声再生ボタンをオーバーレイ描画
+   */
+  renderOverlayAudioButtons() {
+    if (!this.overlayLayer) return;
+    this.overlayLayer.innerHTML = "";
+
+    if (!this.isFlashcard()) return;
+
+    const item = this.getCurrentSpeechItem();
+    if (!item || !item.items || !Array.isArray(item.items) || item.items.length === 0) {
+      return;
+    }
+
+    item.items.forEach((subItem, index) => {
+      const btn = document.createElement("button");
+      btn.className = `slide-overlay-audio-btn type-${subItem.type || 'pos'}`;
+      btn.dataset.index = String(index);
+      btn.style.top = `${subItem.top || 50}%`;
+      btn.style.right = `${subItem.right || 4.5}%`;
+      btn.title = `「${subItem.romaji}」を発音 (${subItem.kana || ''})`;
+      btn.setAttribute("aria-label", `発音: ${subItem.romaji}`);
+
+      btn.innerHTML = `
+        <span class="btn-icon">🔊</span>
+        <span class="btn-type-label">${subItem.label || '▶'}</span>
+      `;
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.speakSingleItem(index);
+      });
+
+      this.overlayLayer.appendChild(btn);
+    });
   }
 
   setSpeakingState(speaking) {
@@ -634,6 +833,7 @@ class SlideViewer {
         this.floatingAudioPill.classList.add("hidden");
         this.floatingAudioPill.style.display = "none";
       }
+      this.renderOverlayAudioButtons();
       this.stopCurrentAudio();
       return;
     }
@@ -648,12 +848,22 @@ class SlideViewer {
     const hasAudio = item && !item.isExplanation && !item.noAudio && (item.audio || item.kana || item.romaji);
 
     if (hasAudio) {
+      const isMultiItem = item.items && Array.isArray(item.items) && item.items.length > 0;
+
       // 発音データあり（通常フラッシュカード）：発音ボタンとフローティングバッジを表示・有効化
       if (this.speakBtn) {
         this.speakBtn.classList.remove("hidden", "disabled");
         this.speakBtn.style.display = "";
         this.speakBtn.disabled = false;
-        this.speakBtn.title = `このスライドの日本語を発音 (Sキー) / Listen: ${item.kana || item.romaji}`;
+        if (isMultiItem) {
+          this.speakBtn.title = `このスライドの全文章を順番に発音 (Sキー) / Listen all sentences: ${item.kana || item.romaji}`;
+          const speakText = this.speakBtn.querySelector(".speak-text");
+          if (speakText) speakText.innerHTML = `全文章を発音 <span class="btn-en">/ Listen All</span>`;
+        } else {
+          this.speakBtn.title = `このスライドの日本語を発音 (Sキー) / Listen: ${item.kana || item.romaji}`;
+          const speakText = this.speakBtn.querySelector(".speak-text");
+          if (speakText) speakText.innerHTML = `発音を聞く <span class="btn-en">/ Listen</span>`;
+        }
       }
       if (this.speedBtn) {
         this.speedBtn.classList.remove("hidden", "disabled");
@@ -678,9 +888,13 @@ class SlideViewer {
       if (this.floatingWordEn) {
         this.floatingWordEn.textContent = item.en || "";
       }
+
+      // スライド上の個別音声ボタンを描画
+      this.renderOverlayAudioButtons();
     } else {
       // 説明カードまたは発音データなし：音声再生を停止し、発音ボタンとフローティングバッジを非表示
       this.stopCurrentAudio();
+      this.renderOverlayAudioButtons();
 
       if (this.speakBtn) {
         this.speakBtn.classList.add("hidden");

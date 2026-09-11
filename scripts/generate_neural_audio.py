@@ -169,6 +169,18 @@ async def main():
                 if 'audio' in item:
                     del item['audio']
                 continue
+
+            if item.get('items'):
+                for idx, sub_item in enumerate(item['items']):
+                    filename = f"slide_{page_num:03d}_{idx+1}.mp3"
+                    rel_path = f"audio/{subfolder}/{filename}"
+                    abs_path = os.path.join(workspace, rel_path)
+                    sub_item['audio'] = rel_path
+                    total_count += 1
+                    sub_text = clean_for_speech(sub_item.get('kana') or sub_item.get('romaji') or '')
+                    tasks.append(generate_single_audio(sem, sub_text, abs_path))
+                item['audio'] = f"audio/{subfolder}/slide_{page_num:03d}_1.mp3"
+                continue
             raw_text = item.get('kana') or item.get('romaji') or ''
             if (subfolder, page_num) in SLIDE_TEXT_OVERRIDES:
                 speech_text = SLIDE_TEXT_OVERRIDES[(subfolder, page_num)]

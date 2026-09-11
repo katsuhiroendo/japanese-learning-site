@@ -1,5 +1,5 @@
 /**
- * 日本語音声発音データ辞書 (フラッシュカード専用・高品位ニューラルMP3音源)
+ * 日本語音声発音データ辞書 (高品位ニューラルMP3音源 & Web Speech API 対応)
  * 自動生成スクリプト: scripts/generate_neural_audio.py
  */
 
@@ -995,9 +995,29 @@ var SPEECH_DATA = {
     },
     "12": {
       "romaji": "Watashi wa Jon desu. / Watashi wa Jon de wa ari-masen.",
-      "kana": "わたしは ジョン です.",
+      "kana": "わたしは ジョン です。 / わたしは ジョン ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_012.mp3"
+      "audio": "audio/002_02/slide_012_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Watashi wa Jon desu.",
+          "kana": "わたしは ジョン です。",
+          "audio": "audio/002_02/slide_012_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Watashi wa Jon de wa ari-masen.",
+          "kana": "わたしは ジョン ではありません。",
+          "audio": "audio/002_02/slide_012_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "13": {
       "romaji": "Nihon-jin",
@@ -1007,9 +1027,29 @@ var SPEECH_DATA = {
     },
     "14": {
       "romaji": "Watashi wa Nihon-jin desu. / Watashi wa Nihon-jin de wa ari-masen.",
-      "kana": "わたしは にほんじん です.",
+      "kana": "わたしは にほんじん です。 / わたしは にほんじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_014.mp3"
+      "audio": "audio/002_02/slide_014_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Watashi wa Nihon-jin desu.",
+          "kana": "わたしは にほんじん です。",
+          "audio": "audio/002_02/slide_014_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Watashi wa Nihon-jin de wa ari-masen.",
+          "kana": "わたしは にほんじん ではありません。",
+          "audio": "audio/002_02/slide_014_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "15": {
       "romaji": "Amerika-jin",
@@ -1019,9 +1059,29 @@ var SPEECH_DATA = {
     },
     "16": {
       "romaji": "Watashi wa Amerika-jin desu. / Watashi wa Amerika-jin de wa ari-masen.",
-      "kana": "わたしは アメリカじん です.",
+      "kana": "わたしは アメリカじん です。 / わたしは アメリカじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_016.mp3"
+      "audio": "audio/002_02/slide_016_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Watashi wa Amerika-jin desu.",
+          "kana": "わたしは アメリカじん です。",
+          "audio": "audio/002_02/slide_016_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Watashi wa Amerika-jin de wa ari-masen.",
+          "kana": "わたしは アメリカじん ではありません。",
+          "audio": "audio/002_02/slide_016_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "17": {
       "romaji": "Oosutoraria-jin",
@@ -1031,9 +1091,29 @@ var SPEECH_DATA = {
     },
     "18": {
       "romaji": "Watashi wa Oosutoraria-jin desu. / Watashi wa Oosutoraria-jin de wa ari-masen.",
-      "kana": "わたしは オーストラリアじん です.",
+      "kana": "わたしは オーストラリアじん です。 / わたしは オーストラリアじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_018.mp3"
+      "audio": "audio/002_02/slide_018_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Watashi wa Oosutoraria-jin desu.",
+          "kana": "わたしは オーストラリアじん です。",
+          "audio": "audio/002_02/slide_018_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Watashi wa Oosutoraria-jin de wa ari-masen.",
+          "kana": "わたしは オーストラリアじん ではありません。",
+          "audio": "audio/002_02/slide_018_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "19": {
       "romaji": "Chuugoku-jin",
@@ -1043,9 +1123,29 @@ var SPEECH_DATA = {
     },
     "20": {
       "romaji": "Watashi wa Chuugoku-jin desu. / Watashi wa Chuugoku-jin de wa ari-masen.",
-      "kana": "わたしは ちゅうごくじん です.",
+      "kana": "わたしは ちゅうごくじん です。 / わたしは ちゅうごくじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_020.mp3"
+      "audio": "audio/002_02/slide_020_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Watashi wa Chuugoku-jin desu.",
+          "kana": "わたしは ちゅうごくじん です。",
+          "audio": "audio/002_02/slide_020_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Watashi wa Chuugoku-jin de wa ari-masen.",
+          "kana": "わたしは ちゅうごくじん ではありません。",
+          "audio": "audio/002_02/slide_020_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "21": {
       "romaji": "Exercise 1  (2) & (4)   Substitution Drill",
@@ -1062,9 +1162,29 @@ var SPEECH_DATA = {
     },
     "23": {
       "romaji": "Watashi-tachi wa Nihon-jin desu. / Watashi-tachi wa Nihon-jin de wa ari-masen.",
-      "kana": "わたしたちは にほんじん です.",
+      "kana": "わたしたちは にほんじん です。 / わたしたちは にほんじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_023.mp3"
+      "audio": "audio/002_02/slide_023_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Watashi-tachi wa Nihon-jin desu.",
+          "kana": "わたしたちは にほんじん です。",
+          "audio": "audio/002_02/slide_023_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Watashi-tachi wa Nihon-jin de wa ari-masen.",
+          "kana": "わたしたちは にほんじん ではありません。",
+          "audio": "audio/002_02/slide_023_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "24": {
       "romaji": "anata",
@@ -1074,9 +1194,29 @@ var SPEECH_DATA = {
     },
     "25": {
       "romaji": "Anata wa Nihon-jin desu. / Anata wa Nihon-jin de wa ari-masen.",
-      "kana": "あなたは にほんじん です.",
+      "kana": "あなたは にほんじん です。 / あなたは にほんじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_025.mp3"
+      "audio": "audio/002_02/slide_025_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Anata wa Nihon-jin desu.",
+          "kana": "あなたは にほんじん です。",
+          "audio": "audio/002_02/slide_025_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Anata wa Nihon-jin de wa ari-masen.",
+          "kana": "あなたは にほんじん ではありません。",
+          "audio": "audio/002_02/slide_025_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "26": {
       "romaji": "anata-tachi",
@@ -1086,9 +1226,29 @@ var SPEECH_DATA = {
     },
     "27": {
       "romaji": "Anata-tachi wa Nihon-jin desu. / Anata-tachi wa Nihon-jin de wa ari-masen.",
-      "kana": "あなたたちは にほんじん です.",
+      "kana": "あなたたちは にほんじん です。 / あなたたちは にほんじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_027.mp3"
+      "audio": "audio/002_02/slide_027_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Anata-tachi wa Nihon-jin desu.",
+          "kana": "あなたたちは にほんじん です。",
+          "audio": "audio/002_02/slide_027_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Anata-tachi wa Nihon-jin de wa ari-masen.",
+          "kana": "あなたたちは にほんじん ではありません。",
+          "audio": "audio/002_02/slide_027_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "28": {
       "romaji": "kare",
@@ -1098,9 +1258,29 @@ var SPEECH_DATA = {
     },
     "29": {
       "romaji": "Kare wa Nihon-jin desu. / Kare wa Nihon-jin de wa ari-masen.",
-      "kana": "かれは にほんじん です.",
+      "kana": "かれは にほんじん です。 / かれは にほんじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_029.mp3"
+      "audio": "audio/002_02/slide_029_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Kare wa Nihon-jin desu.",
+          "kana": "かれは にほんじん です。",
+          "audio": "audio/002_02/slide_029_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Kare wa Nihon-jin de wa ari-masen.",
+          "kana": "かれは にほんじん ではありません。",
+          "audio": "audio/002_02/slide_029_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "30": {
       "romaji": "kanojo",
@@ -1110,9 +1290,29 @@ var SPEECH_DATA = {
     },
     "31": {
       "romaji": "Kanojo wa Nihon-jin desu. / Kanojo wa Nihon-jin de wa ari-masen.",
-      "kana": "かのじょは にほんじん です.",
+      "kana": "かのじょは にほんじん です。 / かのじょは にほんじん ではありません。",
       "en": "Substitution Drill",
-      "audio": "audio/002_02/slide_031.mp3"
+      "audio": "audio/002_02/slide_031_1.mp3",
+      "items": [
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Kanojo wa Nihon-jin desu.",
+          "kana": "かのじょは にほんじん です。",
+          "audio": "audio/002_02/slide_031_1.mp3",
+          "top": 37.8,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Kanojo wa Nihon-jin de wa ari-masen.",
+          "kana": "かのじょは にほんじん ではありません。",
+          "audio": "audio/002_02/slide_031_2.mp3",
+          "top": 70.6,
+          "right": 4.5
+        }
+      ]
     },
     "32": {
       "romaji": "Exercise 1  (5) & Exercise 2   Question & Answer Drill",
@@ -1122,34 +1322,179 @@ var SPEECH_DATA = {
       "noAudio": true
     },
     "33": {
-      "romaji": "Anata wa Jon-san desu ka?",
-      "kana": "あなたは ジョンさん ですか？ はい、 ジョン です。",
+      "romaji": "Anata wa Jon-san desu ka?  ✓ Hai, Jon desu.  ✕ Iie, Jon de wa ari-masen.",
+      "kana": "あなたは ジョンさん ですか？ はい、ジョン です。 いいえ、ジョン ではありません。",
       "en": "Question & Answer Drill",
-      "audio": "audio/002_02/slide_033.mp3"
+      "audio": "audio/002_02/slide_033_1.mp3",
+      "items": [
+        {
+          "type": "question",
+          "label": "？",
+          "romaji": "Anata wa Jon-san desu ka?",
+          "kana": "あなたは ジョンさん ですか？",
+          "audio": "audio/002_02/slide_033_1.mp3",
+          "top": 29.3,
+          "right": 4.5
+        },
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Hai, Jon desu.",
+          "kana": "はい、ジョン です。",
+          "audio": "audio/002_02/slide_033_2.mp3",
+          "top": 50.2,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Iie, Jon de wa ari-masen.",
+          "kana": "いいえ、ジョン ではありません。",
+          "audio": "audio/002_02/slide_033_3.mp3",
+          "top": 83.1,
+          "right": 4.5
+        }
+      ]
     },
     "34": {
-      "romaji": "Anata wa Nihon-jin desu ka?",
-      "kana": "あなたは にほんじん ですか？ はい、 にほんじん です。",
+      "romaji": "Anata wa Nihon-jin desu ka?  ✓ Hai, Nihon-jin desu.  ✕ Iie, Nihon-jin de wa ari-masen.",
+      "kana": "あなたは にほんじん ですか？ はい、にほんじん です。 いいえ、にほんじん ではありません。",
       "en": "Question & Answer Drill",
-      "audio": "audio/002_02/slide_034.mp3"
+      "audio": "audio/002_02/slide_034_1.mp3",
+      "items": [
+        {
+          "type": "question",
+          "label": "？",
+          "romaji": "Anata wa Nihon-jin desu ka?",
+          "kana": "あなたは にほんじん ですか？",
+          "audio": "audio/002_02/slide_034_1.mp3",
+          "top": 29.3,
+          "right": 4.5
+        },
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Hai, Nihon-jin desu.",
+          "kana": "はい、にほんじん です。",
+          "audio": "audio/002_02/slide_034_2.mp3",
+          "top": 50.2,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Iie, Nihon-jin de wa ari-masen.",
+          "kana": "いいえ、にほんじん ではありません。",
+          "audio": "audio/002_02/slide_034_3.mp3",
+          "top": 83.1,
+          "right": 4.5
+        }
+      ]
     },
     "35": {
-      "romaji": "Anata wa Amerika-jin desu ka?",
-      "kana": "あなたは アメリカじん ですか？ はい、 アメリカじん です。",
+      "romaji": "Anata wa Amerika-jin desu ka?  ✓ Hai, Amerika-jin desu.  ✕ Iie, Amerika-jin de wa ari-masen.",
+      "kana": "あなたは アメリカじん ですか？ はい、アメリカじん です。 いいえ、アメリカじん ではありません。",
       "en": "Question & Answer Drill",
-      "audio": "audio/002_02/slide_035.mp3"
+      "audio": "audio/002_02/slide_035_1.mp3",
+      "items": [
+        {
+          "type": "question",
+          "label": "？",
+          "romaji": "Anata wa Amerika-jin desu ka?",
+          "kana": "あなたは アメリカじん ですか？",
+          "audio": "audio/002_02/slide_035_1.mp3",
+          "top": 29.3,
+          "right": 4.5
+        },
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Hai, Amerika-jin desu.",
+          "kana": "はい、アメリカじん です。",
+          "audio": "audio/002_02/slide_035_2.mp3",
+          "top": 50.2,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Iie, Amerika-jin de wa ari-masen.",
+          "kana": "いいえ、アメリカじん ではありません。",
+          "audio": "audio/002_02/slide_035_3.mp3",
+          "top": 83.1,
+          "right": 4.5
+        }
+      ]
     },
     "36": {
-      "romaji": "Anata wa Oosutoraria-jin desu ka?",
-      "kana": "あなたは オーストラリアじん ですか？ はい、 オーストラリアじん です。",
+      "romaji": "Anata wa Oosutoraria-jin desu ka?  ✓ Hai, Oosutoraria-jin desu.  ✕ Iie, Oosutoraria-jin de wa ari-masen.",
+      "kana": "あなたは オーストラリアじん ですか？ はい、オーストラリアじん です。 いいえ、オーストラリアじん ではありません。",
       "en": "Question & Answer Drill",
-      "audio": "audio/002_02/slide_036.mp3"
+      "audio": "audio/002_02/slide_036_1.mp3",
+      "items": [
+        {
+          "type": "question",
+          "label": "？",
+          "romaji": "Anata wa Oosutoraria-jin desu ka?",
+          "kana": "あなたは オーストラリアじん ですか？",
+          "audio": "audio/002_02/slide_036_1.mp3",
+          "top": 29.3,
+          "right": 4.5
+        },
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Hai, Oosutoraria-jin desu.",
+          "kana": "はい、オーストラリアじん です。",
+          "audio": "audio/002_02/slide_036_2.mp3",
+          "top": 50.2,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Iie, Oosutoraria-jin de wa ari-masen.",
+          "kana": "いいえ、オーストラリアじん ではありません。",
+          "audio": "audio/002_02/slide_036_3.mp3",
+          "top": 83.1,
+          "right": 4.5
+        }
+      ]
     },
     "37": {
-      "romaji": "Anata wa Chuugoku-jin desu ka?",
-      "kana": "あなたは ちゅうごくじん ですか？ はい、 ちゅうごくじん です。",
+      "romaji": "Anata wa Chuugoku-jin desu ka?  ✓ Hai, Chuugoku-jin desu.  ✕ Iie, Chuugoku-jin de wa ari-masen.",
+      "kana": "あなたは ちゅうごくじん ですか？ はい、ちゅうごくじん です。 いいえ、ちゅうごくじん ではありません。",
       "en": "Question & Answer Drill",
-      "audio": "audio/002_02/slide_037.mp3"
+      "audio": "audio/002_02/slide_037_1.mp3",
+      "items": [
+        {
+          "type": "question",
+          "label": "？",
+          "romaji": "Anata wa Chuugoku-jin desu ka?",
+          "kana": "あなたは ちゅうごくじん ですか？",
+          "audio": "audio/002_02/slide_037_1.mp3",
+          "top": 29.3,
+          "right": 4.5
+        },
+        {
+          "type": "pos",
+          "label": "✓",
+          "romaji": "Hai, Chuugoku-jin desu.",
+          "kana": "はい、ちゅうごくじん です。",
+          "audio": "audio/002_02/slide_037_2.mp3",
+          "top": 50.2,
+          "right": 4.5
+        },
+        {
+          "type": "neg",
+          "label": "✕",
+          "romaji": "Iie, Chuugoku-jin de wa ari-masen.",
+          "kana": "いいえ、ちゅうごくじん ではありません。",
+          "audio": "audio/002_02/slide_037_3.mp3",
+          "top": 83.1,
+          "right": 4.5
+        }
+      ]
     },
     "38": {
       "romaji": "Numbers (I)   0  ~  100",
