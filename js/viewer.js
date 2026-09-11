@@ -458,7 +458,7 @@ class SlideViewer {
     // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
     if (item.audio) {
       try {
-        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=4.1';
+        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=4.2';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
