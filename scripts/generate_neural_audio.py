@@ -115,6 +115,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 145): '厚さ！',    # atsusa (thickness) -> a↓ tsu↑ sa↑ (平板アクセント)
     ('001_02', 146): '主人',      # shujin (husband) -> shu↑ ji↓ n↓ (頭高アクセント)
     ('001_02', 148): '問いは、',  # toi (question) -> to↓ i↑ (平板アクセント)
+    ('002_02', 13): '日本人',     # Nihon-jin (Japanese person) -> Ni↓ ho↑ n↑ ji↑ n↓ (平板・尾高アクセント)
 }
 
 def clean_for_speech(text):
