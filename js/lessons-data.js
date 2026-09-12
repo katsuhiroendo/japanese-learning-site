@@ -30,11 +30,11 @@ const LESSONS_DATA = [
       }
     ],
     video: {
-      title: "【解説動画】日本語の文字（ひらがな・カタカナ・漢字）と発音のきほん",
+      title: "【ミュージック復習動画】日本語の文字（ひらがな・カタカナ・漢字）と発音のきほん",
       youtubeId: "mOERMe1QgrE",
       youtubeUrl: "https://youtu.be/mOERMe1QgrE",
-      description: "口の開け方・舌の位置・音の長さなど、ネイティブの発音とリズムを動画で一緒に確認しましょう。",
-      descriptionEn: "Watch this video to practice mouth shapes, tongue positions, sound lengths, and natural speech rhythm with native pronunciation."
+      description: "音楽に合わせて復習しましょう。軽快なリズムにのせて、日本語の音と文字を楽しく復習できます。",
+      descriptionEn: "Review along with the music! Practice Japanese sounds and characters to a cheerful rhythm."
     },
     tags: ["入門", "ひらがな", "カタカナ", "漢字", "発音", "五十音"],
     available: true
@@ -65,11 +65,11 @@ const LESSONS_DATA = [
       }
     ],
     video: {
-      title: "【解説動画】Lesson 1 基本のあいさつ 会話練習",
+      title: "【ミュージック復習動画】Lesson 1 基本のあいさつ 会話練習",
       youtubeId: "whOHuO05iFw",
       youtubeUrl: "https://youtu.be/whOHuO05iFw",
-      description: "スライドに出てくる会話を声に出してリピート練習しましょう。朝・昼・夜のあいさつの使い分けも解説します。",
-      descriptionEn: "Repeat the conversations aloud along with the video. Learn how to naturally use morning, afternoon, and evening greetings in real situations."
+      description: "音楽に合わせて復習しましょう。音楽のリズムにのせてフラッシュカードをめくりながら、声に出して楽しくあいさつを身につけましょう。",
+      descriptionEn: "Review along with the music! Practice essential greetings aloud to the rhythm of the flashcards."
     },
     tags: ["初級", "あいさつ", "日常会話", "フラッシュカード", "会話表現"],
     available: true
@@ -93,11 +93,11 @@ const LESSONS_DATA = [
       }
     ],
     video: {
-      title: "【解説動画】Lesson 2 初めての自己紹介",
+      title: "【ミュージック復習動画】Lesson 2 初めての自己紹介",
       youtubeId: "",
       youtubeUrl: "",
-      description: "名刺交換やクラスでの自己紹介で使える自然な表現を練習します。",
-      descriptionEn: "Practice natural expressions useful when introducing yourself in classes, workplaces, and exchanges."
+      description: "音楽に合わせて復習しましょう。自己紹介の基本フレーズをリズムよく復習できます。",
+      descriptionEn: "Review along with the music! Practice natural self-introduction expressions to the rhythm."
     },
     tags: ["初級", "自己紹介", "名詞文", "〜は〜です"],
     available: false
@@ -113,11 +113,11 @@ const LESSONS_DATA = [
     descriptionEn: "Master Japanese demonstratives (ko-so-a-do: this, that, that over there, which) and express possession with 'whose' and 'what is this?'.",
     materials: [],
     video: {
-      title: "【解説動画】これ・それ・あれの距離感マスター",
+      title: "【ミュージック復習動画】これ・それ・あれの距離感マスター",
       youtubeId: "",
       youtubeUrl: "",
-      description: "話し手と聞き手の距離感による使い分けのポイント。",
-      descriptionEn: "Key points for choosing demonstratives based on physical and psychological distance between speakers."
+      description: "音楽に合わせて復習しましょう。指示詞の使い分けをリズムよく復習できます。",
+      descriptionEn: "Review along with the music! Master demonstrative pronouns to the rhythm."
     },
     tags: ["初級", "指示詞", "文法", "物の名前"],
     available: false
@@ -247,11 +247,11 @@ const CURRICULUM_PLAN = [
       descriptionEn: `Curriculum for Lesson ${i}. Master essential vocabulary, key sentence patterns, and practical dialogue on "${planTopic}". (Slide materials coming soon)`,
       materials: [],
       video: {
-        title: `【解説動画】Lesson ${i} ${planTopic}`,
+        title: `【ミュージック復習動画】Lesson ${i} ${planTopic}`,
         youtubeId: "",
         youtubeUrl: "",
-        description: `Lesson ${i} の解説動画です。`,
-        descriptionEn: `Explanation video for Lesson ${i}.`
+        description: `音楽に合わせて復習しましょう。Lesson ${i} のフラッシュカード復習動画です。`,
+        descriptionEn: `Review along with the music! Flashcard review video for Lesson ${i}.`
       },
       tags: [level, category, planTopic],
       available: false

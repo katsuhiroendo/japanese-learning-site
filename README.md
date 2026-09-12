@@ -1,6 +1,6 @@
 # 🌸 にほんご学習ポータル (Nihongo Learning Portal)
 
-日本語教育用のプレゼンテーション資料（PowerPointから変換したPDF）および解説動画（YouTube）を快適に閲覧・学習できるWebサイトです。
+日本語教育用のプレゼンテーション資料（PowerPointから変換したPDF）およびミュージック復習動画（YouTube）を快適に閲覧・学習できるWebサイトです。
 
 100レッスン規模のカリキュラムに対応し、洗練された「和モダン × 親しみやすさ」をテーマにしたデザインを採用しています。GitHub Pagesなどの無料ホスティングサービスで簡単に世界中へ公開できます。
 
@@ -26,7 +26,7 @@
    - 全画面表示モード（プロジェクターや大画面での授業・学習に最適）。
    - 1レッスンに複数の資料（本編スライドとフラッシュカードなど）がある場合のタブ切り替え対応。
 
-4. **YouTube解説動画プレイヤー**
+4. **YouTubeミュージック復習動画プレイヤー**
    - レッスンごとにYouTube動画のURL/IDを設定可能。
    - クリックで高画質再生、解説テキストも掲載。
 
@@ -114,10 +114,10 @@ GitHub Pages を利用することで、完全無料で独自のWebサイトと�
     }
   ],
   video: {
-    title: "【解説動画】Lesson 1 基本のあいさつ 会話練習",
-    youtubeId: "F3wYl5w9RQE", // YouTubeの動画IDまたはURL
-    youtubeUrl: "https://www.youtube.com/watch?v=F3wYl5w9RQE",
-    description: "スライドに出てくる会話を声に出してリピート練習しましょう。"
+    title: "【ミュージック復習動画】Lesson 1 基本のあいさつ 会話練習",
+    youtubeId: "whOHuO05iFw", // YouTubeの動画IDまたはURL
+    youtubeUrl: "https://youtu.be/whOHuO05iFw",
+    description: "音楽に合わせて復習しましょう。フラッシュカードのリズムにのって、声に出して楽しくあいさつを身につけましょう。"
   },
   tags: ["初級", "あいさつ", "日常会話", "フラッシュカード"],
   available: true // 公開時は true に設定

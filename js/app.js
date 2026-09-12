@@ -566,7 +566,7 @@
         el.videoBadge.className = "badge-yt";
       }
       if (el.videoTitle) {
-        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【解説動画】";
+        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【ミュージック復習動画】";
       }
       if (el.videoDesc) {
         el.videoDesc.classList.remove("in-production");
@@ -576,7 +576,7 @@
             <span class="video-desc-en">${videoData.descriptionEn}</span>
           `;
         } else {
-          el.videoDesc.textContent = (videoData && videoData.description) || "動画を再生して学習ポイントを確認しましょう。";
+          el.videoDesc.textContent = (videoData && videoData.description) || "音楽に合わせて復習しましょう。フラッシュカードのリズムにのって楽しく練習できます。";
         }
       }
     } else {
@@ -591,13 +591,13 @@
         el.videoBadge.className = "badge-yt in-production";
       }
       if (el.videoTitle) {
-        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【解説動画】レッスン解説";
+        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【ミュージック復習動画】レッスン復習";
       }
       if (el.videoDesc) {
         el.videoDesc.classList.add("in-production");
         el.videoDesc.innerHTML = `
-          <span class="video-desc-ja">💡 このレッスンの解説動画は現在制作中です。完成までスライド教材と音声フラッシュカードをご活用ください。</span>
-          <span class="video-desc-en">The instructional video for this lesson is currently in production. Please enjoy the slide materials and audio flashcards while you wait.</span>
+          <span class="video-desc-ja">💡 このレッスンのミュージック復習動画は現在制作中です。完成までスライド教材と音声フラッシュカードをご活用ください。</span>
+          <span class="video-desc-en">The music review video for this lesson is currently in production. Please enjoy the slide materials and audio flashcards while you wait.</span>
         `;
       }
     }
