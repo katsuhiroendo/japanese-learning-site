@@ -120,6 +120,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('002_02', 65): '一時',       # Ichi-ji (1 o'clock) -> I↓ chi↑ ji↓ (中高アクセント)
     ('002_02', 66): '二時',       # Ni-ji (2 o'clock) -> Ni↑ ji↓ (頭高アクセント調音)
     ('002_02', 67): '三時',       # San-ji (3 o'clock) -> Sa↑ n↓ ji↓ (頭高アクセント調音)
+    ('002_02', 72): '八時',       # Hachi-ji (8 o'clock) -> Ha↑ chi↑ ji↓ (調音済)
 }
 
 def clean_for_speech(text):
