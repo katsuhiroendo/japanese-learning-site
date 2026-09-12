@@ -333,6 +333,12 @@
   border-radius: 6px;
   font-weight: 700;
   letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.video-section-title .badge-yt.in-production {
+  background: #f59e0b;
+  color: #0f172a;
 }
 
 .video-player-wrapper {
@@ -355,6 +361,94 @@
   border: 0;
 }
 
+/* 動画未作成時プレースホルダー */
+.video-empty-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 24px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.video-placeholder-inner {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.video-placeholder-icon {
+  font-size: 3.2rem;
+  line-height: 1;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  animation: pulseIcon 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); opacity: 0.92; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+.video-placeholder-title-ja {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.video-placeholder-title-en {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #94a3b8;
+  font-family: var(--font-en, sans-serif);
+  margin-bottom: 8px;
+}
+
+.video-placeholder-sub-ja {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.video-placeholder-sub-en {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-family: var(--font-en, sans-serif);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .video-placeholder-icon {
+    font-size: 2.2rem;
+    margin-bottom: 4px;
+  }
+  .video-placeholder-title-ja {
+    font-size: 1.15rem;
+  }
+  .video-placeholder-title-en {
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+  }
+  .video-placeholder-sub-ja {
+    font-size: 0.78rem;
+  }
+  .video-placeholder-sub-en {
+    font-size: 0.72rem;
+  }
+}
+
 .video-description {
   margin-top: 1rem;
   color: #334155;
@@ -364,6 +458,11 @@
   padding: 14px 18px;
   border-radius: 8px;
   border-left: 4px solid #ef4444;
+  transition: border-color 0.2s ease;
+}
+
+.video-description.in-production {
+  border-left-color: #f59e0b;
 }
 
 .video-description .video-desc-ja {

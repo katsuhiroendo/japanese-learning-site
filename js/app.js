@@ -63,8 +63,10 @@
     detailToggleDone: document.getElementById("detail-toggle-done"),
     videoSection: document.getElementById("video-section"),
     videoTitle: document.getElementById("video-title"),
+    videoBadge: document.getElementById("video-badge"),
     videoDesc: document.getElementById("video-desc"),
-    youtubeIframe: document.getElementById("youtube-iframe")
+    youtubeIframe: document.getElementById("youtube-iframe"),
+    videoPlaceholder: document.getElementById("video-empty-placeholder")
   };
 
   /**
@@ -519,15 +521,16 @@
   }
 
   /**
-   * YouTubeプレーヤーのセットアップ
+   * YouTubeプレーヤー / 動画プレースホルダーのセットアップ
    */
   function setupVideoPlayer(videoData) {
     if (!el.videoSection || !el.youtubeIframe) return;
 
-    if (videoData && (videoData.youtubeId || videoData.youtubeUrl)) {
-      el.videoSection.style.display = "block";
-      
-      let videoId = (videoData.youtubeId || "").trim();
+    el.videoSection.style.display = "block";
+
+    let videoId = "";
+    if (videoData) {
+      videoId = (videoData.youtubeId || "").trim();
       if (videoId.includes("/") || videoId.includes("?")) {
         const match = videoId.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
         if (match) videoId = match[1];
@@ -536,30 +539,54 @@
         const urlMatch = videoData.youtubeUrl.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
         if (urlMatch) videoId = urlMatch[1];
       }
+    }
 
-      if (videoId) {
-        el.youtubeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
-      } else {
-        el.youtubeIframe.src = "";
+    if (videoId) {
+      // 有効な動画リンクが存在する場合
+      el.youtubeIframe.style.display = "block";
+      el.youtubeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
+      if (el.videoPlaceholder) {
+        el.videoPlaceholder.style.display = "none";
       }
-
+      if (el.videoBadge) {
+        el.videoBadge.textContent = "YouTube";
+        el.videoBadge.className = "badge-yt";
+      }
       if (el.videoTitle) {
-        el.videoTitle.textContent = videoData.title || "【解説動画】";
+        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【解説動画】";
       }
       if (el.videoDesc) {
-        if (videoData.descriptionEn) {
+        el.videoDesc.classList.remove("in-production");
+        if (videoData && videoData.descriptionEn) {
           el.videoDesc.innerHTML = `
             <span class="video-desc-ja">${videoData.description}</span>
             <span class="video-desc-en">${videoData.descriptionEn}</span>
           `;
         } else {
-          el.videoDesc.textContent = videoData.description || "動画を再生して学習ポイントを確認しましょう。";
+          el.videoDesc.textContent = (videoData && videoData.description) || "動画を再生して学習ポイントを確認しましょう。";
         }
       }
     } else {
-      // 動画がない場合
+      // 動画リンクが無い場合：「この動画は作成中です」プレースホルダーを表示
       el.youtubeIframe.src = "";
-      el.videoSection.style.display = "none";
+      el.youtubeIframe.style.display = "none";
+      if (el.videoPlaceholder) {
+        el.videoPlaceholder.style.display = "flex";
+      }
+      if (el.videoBadge) {
+        el.videoBadge.textContent = "作成中 / Coming Soon";
+        el.videoBadge.className = "badge-yt in-production";
+      }
+      if (el.videoTitle) {
+        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【解説動画】レッスン解説";
+      }
+      if (el.videoDesc) {
+        el.videoDesc.classList.add("in-production");
+        el.videoDesc.innerHTML = `
+          <span class="video-desc-ja">💡 このレッスンの解説動画は現在制作中です。完成までスライド教材と音声フラッシュカードをご活用ください。</span>
+          <span class="video-desc-en">The instructional video for this lesson is currently in production. Please enjoy the slide materials and audio flashcards while you wait.</span>
+        `;
+      }
     }
   }
 
