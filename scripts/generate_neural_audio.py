@@ -14,7 +14,7 @@ import edge_tts
 READING_FIXES = {
     '四月': 'しがつ',
     '七月': 'しちがつ',
-    '九月': 'くがつ',
+    '九月': '九月',
     '一月': 'いちがつ',
     '二月': 'にがつ',
     '三月': 'さんがつ',
@@ -117,6 +117,7 @@ SLIDE_TEXT_OVERRIDES = {
     ('001_02', 148): '問いは、',  # toi (question) -> to↓ i↑ (平板アクセント)
     ('002_02', 13): '日本人',     # Nihon-jin (Japanese person) -> Ni↓ ho↑ n↑ ji↑ n↓ (平板・尾高アクセント)
     ('002_02', 45): '六',         # Roku (six) -> Ro↓ ku↑ (平板アクセント)
+    ('002_02', 60): '九月',       # Ku-gatsu (September) -> Ku↑ ga↓ tsu↓ (調音済)
     ('002_02', 65): '一時',       # Ichi-ji (1 o'clock) -> I↓ chi↑ ji↓ (中高アクセント)
     ('002_02', 66): '二時',       # Ni-ji (2 o'clock) -> Ni↑ ji↓ (頭高アクセント調音)
     ('002_02', 67): '三時',       # San-ji (3 o'clock) -> Sa↑ n↓ ji↓ (頭高アクセント調音)

@@ -474,7 +474,7 @@ class SlideViewer {
     // 1. 高品位ニューラルMP3音源がある場合はHTML5 Audioで再生（最高品質）
     if (item.audio) {
       try {
-        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=5.7';
+        const audioUrl = item.audio + (item.audio.includes('?') ? '&' : '?') + 'v=5.8';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
@@ -593,7 +593,7 @@ class SlideViewer {
       if (this.floatingWordEn) this.floatingWordEn.textContent = subItem.label ? `[${subItem.label}]` : "";
 
       try {
-        const audioUrl = subItem.audio + (subItem.audio.includes('?') ? '&' : '?') + 'v=5.7';
+        const audioUrl = subItem.audio + (subItem.audio.includes('?') ? '&' : '?') + 'v=5.8';
         const audio = new Audio(audioUrl);
         this.currentAudio = audio;
         audio.playbackRate = this.speechRate || 1.0;
@@ -662,7 +662,7 @@ class SlideViewer {
     if (this.floatingWordEn) this.floatingWordEn.textContent = subItem.label ? `[${subItem.label}]` : "";
 
     try {
-      const audioUrl = subItem.audio + (subItem.audio.includes('?') ? '&' : '?') + 'v=5.7';
+      const audioUrl = subItem.audio + (subItem.audio.includes('?') ? '&' : '?') + 'v=5.8';
       const audio = new Audio(audioUrl);
       this.currentAudio = audio;
       audio.playbackRate = this.speechRate || 1.0;
