@@ -66,8 +66,8 @@ const LESSONS_DATA = [
     ],
     video: {
       title: "【解説動画】Lesson 1 基本のあいさつ 会話練習",
-      youtubeId: "",
-      youtubeUrl: "",
+      youtubeId: "whOHuO05iFw",
+      youtubeUrl: "https://youtu.be/whOHuO05iFw",
       description: "スライドに出てくる会話を声に出してリピート練習しましょう。朝・昼・夜のあいさつの使い分けも解説します。",
       descriptionEn: "Repeat the conversations aloud along with the video. Learn how to naturally use morning, afternoon, and evening greetings in real situations."
     },
