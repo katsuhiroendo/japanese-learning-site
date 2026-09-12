@@ -54,6 +54,8 @@
     btnBackHome: document.getElementById("btn-back-home"),
     btnPrevLesson: document.getElementById("btn-prev-lesson"),
     btnNextLesson: document.getElementById("btn-next-lesson"),
+    btnPrevLessonBottom: document.getElementById("btn-prev-lesson-bottom"),
+    btnNextLessonBottom: document.getElementById("btn-next-lesson-bottom"),
     detailNumberBadge: document.getElementById("detail-number-badge"),
     detailLevelTag: document.getElementById("detail-level-tag"),
     detailCatTag: document.getElementById("detail-cat-tag"),
@@ -110,6 +112,12 @@
     }
     if (el.btnNextLesson) {
       el.btnNextLesson.addEventListener("click", () => navigateLessonDelta(1));
+    }
+    if (el.btnPrevLessonBottom) {
+      el.btnPrevLessonBottom.addEventListener("click", () => navigateLessonDelta(-1));
+    }
+    if (el.btnNextLessonBottom) {
+      el.btnNextLessonBottom.addEventListener("click", () => navigateLessonDelta(1));
     }
 
     // 検索入力
@@ -225,6 +233,11 @@
    */
   function getFilteredLessons() {
     return state.lessons.filter((lesson) => {
+      // 未作成のレッスンは当面表示しない
+      if (!lesson.available) {
+        return false;
+      }
+
       // 1. 検索クエリ
       if (state.searchQuery) {
         const q = state.searchQuery;
@@ -461,8 +474,8 @@
    */
   function openLesson(lessonId, updateHash = true) {
     const lesson = state.lessons.find((l) => l.id === lessonId);
-    if (!lesson) {
-      console.warn("Lesson not found:", lessonId);
+    if (!lesson || !lesson.available) {
+      console.warn("Lesson not found or unavailable:", lessonId);
       navigateToHome();
       return;
     }
@@ -591,49 +604,67 @@
   }
 
   /**
-   * 前後のレッスンへ移動
+   * 利用可能（作成済み）なレッスン一覧を取得
+   */
+  function getAvailableLessons() {
+    return state.lessons.filter((l) => l.available);
+  }
+
+  /**
+   * 前後のレッスンへ移動（作成済みレッスン間のみ）
    */
   function navigateLessonDelta(delta) {
     if (!state.selectedLessonId) return;
-    const currentIndex = state.lessons.findIndex((l) => l.id === state.selectedLessonId);
+    const availLessons = getAvailableLessons();
+    const currentIndex = availLessons.findIndex((l) => l.id === state.selectedLessonId);
     if (currentIndex === -1) return;
 
     const nextIndex = currentIndex + delta;
-    if (nextIndex >= 0 && nextIndex < state.lessons.length) {
-      const nextLesson = state.lessons[nextIndex];
+    if (nextIndex >= 0 && nextIndex < availLessons.length) {
+      const nextLesson = availLessons[nextIndex];
       openLesson(nextLesson.id);
     }
   }
 
   /**
-   * 前後レッスンナビボタンの更新
+   * 前後レッスンナビボタンの更新（作成済みレッスン間のみ）
    */
   function updateLessonPagerNav() {
     if (!state.selectedLessonId) return;
-    const currentIndex = state.lessons.findIndex((l) => l.id === state.selectedLessonId);
+    const availLessons = getAvailableLessons();
+    const currentIndex = availLessons.findIndex((l) => l.id === state.selectedLessonId);
     if (currentIndex === -1) return;
 
-    if (el.btnPrevLesson) {
-      el.btnPrevLesson.disabled = (currentIndex <= 0);
-      if (currentIndex > 0) {
-        const prev = state.lessons[currentIndex - 1];
-        el.btnPrevLesson.innerHTML = `<span>◀</span> ${prev.number} <span class="ui-en">Prev</span>`;
-        el.btnPrevLesson.title = prev.title;
-      } else {
-        el.btnPrevLesson.innerHTML = `<span>◀</span> 前へ <span class="ui-en">/ Prev</span>`;
-      }
-    }
+    const hasPrev = currentIndex > 0;
+    const hasNext = currentIndex < availLessons.length - 1;
 
-    if (el.btnNextLesson) {
-      el.btnNextLesson.disabled = (currentIndex >= state.lessons.length - 1);
-      if (currentIndex < state.lessons.length - 1) {
-        const next = state.lessons[currentIndex + 1];
-        el.btnNextLesson.innerHTML = `<span class="ui-en">Next</span> ${next.number} <span>▶</span>`;
-        el.btnNextLesson.title = next.title;
+    // 前へボタン（上部・下部）
+    const prevButtons = [el.btnPrevLesson, el.btnPrevLessonBottom].filter(Boolean);
+    prevButtons.forEach((btn) => {
+      btn.disabled = !hasPrev;
+      if (hasPrev) {
+        const prev = availLessons[currentIndex - 1];
+        btn.innerHTML = `<span>◀</span> ${prev.number} <span class="ui-en">Prev</span>`;
+        btn.title = prev.title;
       } else {
-        el.btnNextLesson.innerHTML = `次へ <span class="ui-en">/ Next</span> <span>▶</span>`;
+        btn.innerHTML = `<span>◀</span> 前へ <span class="ui-en">/ Prev</span>`;
+        btn.removeAttribute("title");
       }
-    }
+    });
+
+    // 次へボタン（上部・下部）
+    const nextButtons = [el.btnNextLesson, el.btnNextLessonBottom].filter(Boolean);
+    nextButtons.forEach((btn) => {
+      btn.disabled = !hasNext;
+      if (hasNext) {
+        const next = availLessons[currentIndex + 1];
+        btn.innerHTML = `<span class="ui-en">Next</span> ${next.number} <span>▶</span>`;
+        btn.title = next.title;
+      } else {
+        btn.innerHTML = `次へ <span class="ui-en">/ Next</span> <span>▶</span>`;
+        btn.removeAttribute("title");
+      }
+    });
   }
 
   /**

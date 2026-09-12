@@ -15,8 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- スタイルシート -->
-  <link rel="stylesheet" href="css/style.css?v=2.2">
-  <link rel="stylesheet" href="css/viewer.css?v=5.0">
+  <link rel="stylesheet" href="css/style.css?v=2.3">
+  <link rel="stylesheet" href="css/viewer.css?v=5.1">
 </head>
 <body>
 
@@ -299,10 +299,10 @@
             <span>←</span> 一覧に戻る <span class="ui-en">/ Back</span>
           </button>
           <div class="lesson-pager-nav">
-            <button class="btn-pager" onclick="document.getElementById('btn-prev-lesson').click()">
+            <button id="btn-prev-lesson-bottom" class="btn-pager">
               <span>◀</span> 前へ <span class="ui-en">/ Prev</span>
             </button>
-            <button class="btn-pager" onclick="document.getElementById('btn-next-lesson').click()">
+            <button id="btn-next-lesson-bottom" class="btn-pager">
               次へ <span class="ui-en">/ Next</span> <span>▶</span>
             </button>
           </div>
@@ -336,12 +336,12 @@
   <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
   <script src="lib/pdf.min.js"></script>
   <!-- レッスンデータ -->
-  <script src="js/lessons-data.js?v=5.0"></script>
+  <script src="js/lessons-data.js?v=5.1"></script>
   <!-- 発音辞書データ -->
-  <script src="js/speech-data.js?v=5.0"></script>
+  <script src="js/speech-data.js?v=5.1"></script>
   <!-- スライドビューワーコントローラー -->
-  <script src="js/viewer.js?v=5.0"></script>
+  <script src="js/viewer.js?v=5.1"></script>
   <!-- メインアプリケーションロジック -->
-  <script src="js/app.js?v=5.0"></script>
+  <script src="js/app.js?v=5.1"></script>
 </body>
 </html>
