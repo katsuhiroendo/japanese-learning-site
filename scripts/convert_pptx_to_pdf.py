@@ -26,11 +26,17 @@ def get_clean_name(filename: str) -> str:
         "#001_01_日本語の文字と発音": "001_01_japanese_writing",
         "#001_02_日本語の文字と発音_FC": "001_02_japanese_writing_fc",
         "#002_01_Lesson1_あいさつ": "002_01_lesson1_aisatsu",
-        "#002_02_Lesson1_あいさつ_FC": "002_02_lesson1_aisatsu_fc"
+        "#002_02_Lesson1_あいさつ_FC": "002_02_lesson1_aisatsu_fc",
+        "#002_03_Lesson1_charts": "002_03_lesson1_charts",
     }
     if name in mapping:
         return mapping[name] + ".pdf"
     
+    # charts パターンの自動検出: #00X_03_LessonX_charts -> 00x_03_lessonx_charts.pdf
+    chart_match = re.match(r'^[#＃]?(\d{3})_03_([Ll]esson\d+)_charts$', name, re.IGNORECASE)
+    if chart_match:
+        return f"{chart_match.group(1)}_03_{chart_match.group(2).lower()}_charts.pdf"
+
     # 汎用ルール: # を除去、スペースやハイフンをアンダースコアに
     clean = re.sub(r'^[#＃]', '', name)
     clean = re.sub(r'[\s\-]+', '_', clean)

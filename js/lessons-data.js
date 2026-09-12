@@ -62,6 +62,13 @@ const LESSONS_DATA = [
         file: "slides/002_02_lesson1_aisatsu_fc.pdf",
         pages: 76,
         badge: "フラッシュカード"
+      },
+      {
+        id: "charts",
+        title: "📊 チャート <span class=\"ui-en\">/ Charts</span> (3p)",
+        file: "slides/002_03_lesson1_charts.pdf",
+        pages: 3,
+        badge: "チャート"
       }
     ],
     video: {
@@ -71,7 +78,7 @@ const LESSONS_DATA = [
       description: "音楽に合わせて復習しましょう。音楽のリズムにのせてフラッシュカードをめくりながら、声に出して楽しくあいさつを身につけましょう。",
       descriptionEn: "Review along with the music! Practice essential greetings aloud to the rhythm of the flashcards."
     },
-    tags: ["初級", "あいさつ", "日常会話", "フラッシュカード", "会話表現"],
+    tags: ["初級", "あいさつ", "日常会話", "フラッシュカード", "チャート", "会話表現"],
     available: true
   },
   {

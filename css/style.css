@@ -714,6 +714,12 @@ button {
   border-color: #f5d0fe;
 }
 
+.material-chip.chart {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
 /* カードアクションフッター */
 .card-footer-row {
   display: flex;

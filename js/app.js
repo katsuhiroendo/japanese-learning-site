@@ -246,7 +246,10 @@
         const inSub = (lesson.subtitle || "").toLowerCase().includes(q);
         const inDesc = (lesson.description || "").toLowerCase().includes(q);
         const inTags = (lesson.tags || []).some((t) => t.toLowerCase().includes(q));
-        if (!inNum && !inTitle && !inSub && !inDesc && !inTags) {
+        const inMaterials = (lesson.materials || []).some((m) =>
+          (m.title || "").toLowerCase().includes(q) || (m.badge || "").toLowerCase().includes(q)
+        );
+        if (!inNum && !inTitle && !inSub && !inDesc && !inTags && !inMaterials) {
           return false;
         }
       }
@@ -330,10 +333,22 @@
         lesson.materials.forEach((m) => {
           if (m.pages > 0) {
             const isFc = (m.badge === "フラッシュカード" || m.badge === "FC");
-            const chipClass = isFc ? "material-chip fc" : "material-chip slide";
-            const chipIcon = isFc ? "🎴" : "📖";
-            const chipJa = isFc ? "フラッシュカード" : "本編";
-            const chipEn = isFc ? "FC" : "Slide";
+            const isChart = (m.badge === "チャート" || m.id === "charts" || m.badge === "Chart");
+            let chipClass = "material-chip slide";
+            let chipIcon = "📖";
+            let chipJa = "本編";
+            let chipEn = "Slide";
+            if (isFc) {
+              chipClass = "material-chip fc";
+              chipIcon = "🎴";
+              chipJa = "フラッシュカード";
+              chipEn = "FC";
+            } else if (isChart) {
+              chipClass = "material-chip chart";
+              chipIcon = "📊";
+              chipJa = "チャート";
+              chipEn = "Chart";
+            }
             materialsHtml += `<span class="${chipClass}">${chipIcon} ${chipJa} <span class="ui-en">/ ${chipEn}</span> ${m.pages}p</span>`;
           }
         });
