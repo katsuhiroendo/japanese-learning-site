@@ -491,6 +491,17 @@ button {
   box-shadow: 0 3px 10px rgba(30, 58, 138, 0.25);
 }
 
+.filter-pill:disabled,
+.filter-pill.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
 /* 検索結果件数 & ソートバー */
 .results-info-bar {
   display: flex;

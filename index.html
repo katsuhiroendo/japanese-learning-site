@@ -15,8 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- スタイルシート -->
-  <link rel="stylesheet" href="css/style.css?v=2.0">
-  <link rel="stylesheet" href="css/viewer.css?v=4.8">
+  <link rel="stylesheet" href="css/style.css?v=2.1">
+  <link rel="stylesheet" href="css/viewer.css?v=4.9">
 </head>
 <body>
 
@@ -111,7 +111,7 @@
           <!-- 公開状態フィルター -->
           <div class="filter-row">
             <span class="filter-label">教材公開 <span class="ui-en">/ Status:</span></span>
-            <button class="filter-pill avail-pill" data-avail="all">全レッスン <span class="ui-en">/ All Lessons</span></button>
+            <button class="filter-pill avail-pill" data-avail="all" disabled title="準備中（現在は公開中レッスンのみご覧いただけます） / Currently unavailable">全レッスン <span class="ui-en">/ All Lessons</span></button>
             <button class="filter-pill avail-pill active" data-avail="available">✨ 公開中のみ <span class="ui-en">/ Available Only</span></button>
           </div>
         </div>
@@ -327,12 +327,12 @@
   <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
   <script src="lib/pdf.min.js"></script>
   <!-- レッスンデータ -->
-  <script src="js/lessons-data.js?v=4.8"></script>
+  <script src="js/lessons-data.js?v=4.9"></script>
   <!-- 発音辞書データ -->
-  <script src="js/speech-data.js?v=4.8"></script>
+  <script src="js/speech-data.js?v=4.9"></script>
   <!-- スライドビューワーコントローラー -->
-  <script src="js/viewer.js?v=4.8"></script>
+  <script src="js/viewer.js?v=4.9"></script>
   <!-- メインアプリケーションロジック -->
-  <script src="js/app.js?v=4.8"></script>
+  <script src="js/app.js?v=4.9"></script>
 </body>
 </html>

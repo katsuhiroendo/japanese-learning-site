@@ -166,6 +166,7 @@
     // 公開状態フィルター
     document.querySelectorAll(".avail-pill").forEach((btn) => {
       btn.addEventListener("click", () => {
+        if (btn.disabled || btn.classList.contains("disabled")) return;
         document.querySelectorAll(".avail-pill").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         state.availFilter = btn.dataset.avail;
