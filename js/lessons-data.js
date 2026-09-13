@@ -72,13 +72,33 @@ const LESSONS_DATA = [
       }
     ],
     video: {
-      title: "【ミュージック復習動画】Lesson 1 基本のあいさつ 会話練習",
-      youtubeId: "whOHuO05iFw",
-      youtubeUrl: "https://youtu.be/whOHuO05iFw",
-      description: "音楽に合わせて復習しましょう。音楽のリズムにのせてフラッシュカードをめくりながら、声に出して楽しくあいさつを身につけましょう。",
-      descriptionEn: "Review along with the music! Practice essential greetings aloud to the rhythm of the flashcards."
+      title: "【会話動画】Lesson 1 会話練習（Conversation）",
+      youtubeId: "v9tFkFIUnSU",
+      youtubeUrl: "https://youtu.be/v9tFkFIUnSU",
+      description: "スライド本編に出てくる会話（Conversation）の解説・練習動画です。ネイティブの発音と会話のやり取りを動画で一緒に確認しましょう。",
+      descriptionEn: "Practice the dialogue from the main slides along with the video. Listen to native pronunciation and natural conversational flow."
     },
-    tags: ["初級", "あいさつ", "日常会話", "フラッシュカード", "チャート", "会話表現"],
+    videos: [
+      {
+        id: "conversation",
+        tabTitle: "🎬 会話動画 <span class=\"ui-en\">/ Conversation</span>",
+        title: "【会話動画】Lesson 1 会話練習（Conversation）",
+        youtubeId: "v9tFkFIUnSU",
+        youtubeUrl: "https://youtu.be/v9tFkFIUnSU",
+        description: "スライド本編に出てくる会話（Conversation）の解説・練習動画です。ネイティブの発音と会話のやり取りを動画で一緒に確認しましょう。",
+        descriptionEn: "Practice the dialogue from the main slides along with the video. Listen to native pronunciation and natural conversational flow."
+      },
+      {
+        id: "music",
+        tabTitle: "🎵 ミュージック復習動画 <span class=\"ui-en\">/ Music Review</span>",
+        title: "【ミュージック復習動画】Lesson 1 基本のあいさつ フラッシュカード復習",
+        youtubeId: "whOHuO05iFw",
+        youtubeUrl: "https://youtu.be/whOHuO05iFw",
+        description: "音楽に合わせて復習しましょう。音楽のリズムにのせてフラッシュカードをめくりながら、声に出して楽しくあいさつを身につけましょう。",
+        descriptionEn: "Review along with the music! Practice essential greetings aloud to the rhythm of the flashcards."
+      }
+    ],
+    tags: ["初級", "あいさつ", "日常会話", "フラッシュカード", "チャート", "会話表現", "Conversation"],
     available: true
   },
   {

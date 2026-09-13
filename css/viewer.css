@@ -311,6 +311,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 1.25rem;
   border-bottom: 2px solid #f1f5f9;
   padding-bottom: 0.75rem;
@@ -339,6 +341,49 @@
 .video-section-title .badge-yt.in-production {
   background: #f59e0b;
   color: #0f172a;
+}
+
+/* 複数動画切り替えタブ */
+.video-tabs-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.video-tab-btn {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.video-tab-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.video-tab-btn.active {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.video-tab-btn .ui-en {
+  font-size: 0.75rem;
+  opacity: 0.85;
 }
 
 .video-player-wrapper {

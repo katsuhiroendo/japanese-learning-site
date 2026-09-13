@@ -20,7 +20,7 @@
 
   <!-- スタイルシート -->
   <link rel="stylesheet" href="css/style.css?v=2.4">
-  <link rel="stylesheet" href="css/viewer.css?v=6.5">
+  <link rel="stylesheet" href="css/viewer.css?v=6.6">
 </head>
 <body>
 
@@ -276,9 +276,11 @@
           <div class="video-section-header">
             <div class="video-section-title">
               <span>🎥</span>
-              <span id="video-title">【ミュージック復習動画】レッスン復習</span>
+              <span id="video-title">【会話動画】レッスン動画</span>
               <span id="video-badge" class="badge-yt">YouTube</span>
             </div>
+            <!-- 複数動画がある場合の切り替えタブ -->
+            <div class="video-tabs-container" id="video-tabs" style="display: none;"></div>
           </div>
           <div class="video-player-wrapper" id="video-wrapper">
             <iframe id="youtube-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="ミュージック復習動画"></iframe>
@@ -340,12 +342,12 @@
   <!-- PDF.js ライブラリ本体 (ローカル同梱) -->
   <script src="lib/pdf.min.js"></script>
   <!-- レッスンデータ -->
-  <script src="js/lessons-data.js?v=6.5"></script>
+  <script src="js/lessons-data.js?v=6.6"></script>
   <!-- 発音辞書データ -->
-  <script src="js/speech-data.js?v=6.5"></script>
+  <script src="js/speech-data.js?v=6.6"></script>
   <!-- スライドビューワーコントローラー -->
-  <script src="js/viewer.js?v=6.5"></script>
+  <script src="js/viewer.js?v=6.6"></script>
   <!-- メインアプリケーションロジック -->
-  <script src="js/app.js?v=6.5"></script>
+  <script src="js/app.js?v=6.6"></script>
 </body>
 </html>

@@ -354,8 +354,12 @@
         });
       }
 
-      if (lesson.video && (lesson.video.youtubeId || lesson.video.youtubeUrl)) {
-        materialsHtml += `<span class="material-chip video">🎥 動画あり <span class="ui-en">/ Video</span></span>`;
+      const hasVideo = (lesson.videos && lesson.videos.some((v) => v.youtubeId || v.youtubeUrl)) ||
+                       (lesson.video && (lesson.video.youtubeId || lesson.video.youtubeUrl));
+      if (hasVideo) {
+        const videoCount = lesson.videos ? lesson.videos.filter((v) => v.youtubeId || v.youtubeUrl).length : 1;
+        const videoChipLabel = videoCount > 1 ? `🎥 動画 (${videoCount})` : `🎥 動画あり`;
+        materialsHtml += `<span class="material-chip video">${videoChipLabel} <span class="ui-en">/ Video</span></span>`;
       }
 
       if (!materialsHtml) {
@@ -542,7 +546,7 @@
     }
 
     // 動画資料のセットアップ
-    setupVideoPlayer(lesson.video);
+    setupVideoPlayer(lesson);
 
     // 画面上部へスクロール
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -550,72 +554,111 @@
 
   /**
    * YouTubeプレーヤー / 動画プレースホルダーのセットアップ
+   * 単一動画 (lesson.video) および 複数動画 (lesson.videos) に対応
    */
-  function setupVideoPlayer(videoData) {
+  function setupVideoPlayer(lessonOrVideo) {
     if (!el.videoSection || !el.youtubeIframe) return;
 
     el.videoSection.style.display = "block";
 
-    let videoId = "";
-    if (videoData) {
-      videoId = (videoData.youtubeId || "").trim();
-      if (videoId.includes("/") || videoId.includes("?")) {
-        const match = videoId.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
-        if (match) videoId = match[1];
+    let videoList = [];
+    if (lessonOrVideo && lessonOrVideo.videos && Array.isArray(lessonOrVideo.videos) && lessonOrVideo.videos.length > 0) {
+      videoList = lessonOrVideo.videos;
+    } else if (lessonOrVideo && Array.isArray(lessonOrVideo)) {
+      videoList = lessonOrVideo;
+    } else if (lessonOrVideo && lessonOrVideo.video) {
+      videoList = [lessonOrVideo.video];
+    } else if (lessonOrVideo && (lessonOrVideo.youtubeId || lessonOrVideo.youtubeUrl || lessonOrVideo.title)) {
+      videoList = [lessonOrVideo];
+    }
+
+    const videoTabsContainer = document.getElementById("video-tabs");
+
+    function renderActiveVideo(videoData) {
+      let videoId = "";
+      if (videoData) {
+        videoId = (videoData.youtubeId || "").trim();
+        if (videoId.includes("/") || videoId.includes("?")) {
+          const match = videoId.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
+          if (match) videoId = match[1];
+        }
+        if (!videoId && videoData.youtubeUrl) {
+          const urlMatch = videoData.youtubeUrl.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
+          if (urlMatch) videoId = urlMatch[1];
+        }
       }
-      if (!videoId && videoData.youtubeUrl) {
-        const urlMatch = videoData.youtubeUrl.match(/(?:v=|\/embed\/|youtu\.be\/)([^&?]+)/);
-        if (urlMatch) videoId = urlMatch[1];
+
+      if (videoId) {
+        // 有効な動画リンクが存在する場合
+        el.youtubeIframe.style.display = "block";
+        el.youtubeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
+        if (el.videoPlaceholder) {
+          el.videoPlaceholder.style.display = "none";
+        }
+        if (el.videoBadge) {
+          el.videoBadge.textContent = "YouTube";
+          el.videoBadge.className = "badge-yt";
+        }
+        if (el.videoTitle) {
+          el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【動画】";
+        }
+        if (el.videoDesc) {
+          el.videoDesc.classList.remove("in-production");
+          if (videoData && videoData.descriptionEn) {
+            el.videoDesc.innerHTML = `
+              <span class="video-desc-ja">${videoData.description}</span>
+              <span class="video-desc-en">${videoData.descriptionEn}</span>
+            `;
+          } else {
+            el.videoDesc.textContent = (videoData && videoData.description) || "動画を再生して学習ポイントを確認しましょう。";
+          }
+        }
+      } else {
+        // 動画リンクが無い場合：「この動画は作成中です」プレースホルダーを表示
+        el.youtubeIframe.src = "";
+        el.youtubeIframe.style.display = "none";
+        if (el.videoPlaceholder) {
+          el.videoPlaceholder.style.display = "flex";
+        }
+        if (el.videoBadge) {
+          el.videoBadge.textContent = "作成中 / Coming Soon";
+          el.videoBadge.className = "badge-yt in-production";
+        }
+        if (el.videoTitle) {
+          el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【動画】レッスン解説";
+        }
+        if (el.videoDesc) {
+          el.videoDesc.classList.add("in-production");
+          el.videoDesc.innerHTML = `
+            <span class="video-desc-ja">💡 このレッスンの動画は現在制作中です。完成までスライド教材と音声フラッシュカードをご活用ください。</span>
+            <span class="video-desc-en">The video for this lesson is currently in production. Please enjoy the slide materials and audio flashcards while you wait.</span>
+          `;
+        }
       }
     }
 
-    if (videoId) {
-      // 有効な動画リンクが存在する場合
-      el.youtubeIframe.style.display = "block";
-      el.youtubeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
-      if (el.videoPlaceholder) {
-        el.videoPlaceholder.style.display = "none";
-      }
-      if (el.videoBadge) {
-        el.videoBadge.textContent = "YouTube";
-        el.videoBadge.className = "badge-yt";
-      }
-      if (el.videoTitle) {
-        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【ミュージック復習動画】";
-      }
-      if (el.videoDesc) {
-        el.videoDesc.classList.remove("in-production");
-        if (videoData && videoData.descriptionEn) {
-          el.videoDesc.innerHTML = `
-            <span class="video-desc-ja">${videoData.description}</span>
-            <span class="video-desc-en">${videoData.descriptionEn}</span>
-          `;
-        } else {
-          el.videoDesc.textContent = (videoData && videoData.description) || "音楽に合わせて復習しましょう。フラッシュカードのリズムにのって楽しく練習できます。";
-        }
-      }
-    } else {
-      // 動画リンクが無い場合：「この動画は作成中です」プレースホルダーを表示
-      el.youtubeIframe.src = "";
-      el.youtubeIframe.style.display = "none";
-      if (el.videoPlaceholder) {
-        el.videoPlaceholder.style.display = "flex";
-      }
-      if (el.videoBadge) {
-        el.videoBadge.textContent = "作成中 / Coming Soon";
-        el.videoBadge.className = "badge-yt in-production";
-      }
-      if (el.videoTitle) {
-        el.videoTitle.textContent = (videoData && videoData.title) ? videoData.title : "【ミュージック復習動画】レッスン復習";
-      }
-      if (el.videoDesc) {
-        el.videoDesc.classList.add("in-production");
-        el.videoDesc.innerHTML = `
-          <span class="video-desc-ja">💡 このレッスンのミュージック復習動画は現在制作中です。完成までスライド教材と音声フラッシュカードをご活用ください。</span>
-          <span class="video-desc-en">The music review video for this lesson is currently in production. Please enjoy the slide materials and audio flashcards while you wait.</span>
-        `;
+    // 複数動画切り替えタブのセットアップ
+    if (videoTabsContainer) {
+      videoTabsContainer.innerHTML = "";
+      if (videoList.length > 1) {
+        videoTabsContainer.style.display = "flex";
+        videoList.forEach((v, idx) => {
+          const btn = document.createElement("button");
+          btn.className = `video-tab-btn ${idx === 0 ? "active" : ""}`;
+          btn.innerHTML = v.tabTitle || v.title || `動画 ${idx + 1}`;
+          btn.addEventListener("click", () => {
+            videoTabsContainer.querySelectorAll(".video-tab-btn").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            renderActiveVideo(v);
+          });
+          videoTabsContainer.appendChild(btn);
+        });
+      } else {
+        videoTabsContainer.style.display = "none";
       }
     }
+
+    renderActiveVideo(videoList[0] || null);
   }
 
   /**
