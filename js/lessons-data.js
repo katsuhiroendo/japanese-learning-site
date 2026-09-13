@@ -73,8 +73,8 @@ const LESSONS_DATA = [
     ],
     video: {
       title: "【会話動画】Lesson 1 会話練習（Conversation）",
-      youtubeId: "v9tFkFIUnSU",
-      youtubeUrl: "https://youtu.be/v9tFkFIUnSU",
+      youtubeId: "8AbdNtXf2UI",
+      youtubeUrl: "https://youtu.be/8AbdNtXf2UI",
       description: "スライド本編に出てくる会話（Conversation）の解説・練習動画です。ネイティブの発音と会話のやり取りを動画で一緒に確認しましょう。",
       descriptionEn: "Practice the dialogue from the main slides along with the video. Listen to native pronunciation and natural conversational flow."
     },
@@ -83,8 +83,8 @@ const LESSONS_DATA = [
         id: "conversation",
         tabTitle: "🎬 会話動画 <span class=\"ui-en\">/ Conversation</span>",
         title: "【会話動画】Lesson 1 会話練習（Conversation）",
-        youtubeId: "v9tFkFIUnSU",
-        youtubeUrl: "https://youtu.be/v9tFkFIUnSU",
+        youtubeId: "8AbdNtXf2UI",
+        youtubeUrl: "https://youtu.be/8AbdNtXf2UI",
         description: "スライド本編に出てくる会話（Conversation）の解説・練習動画です。ネイティブの発音と会話のやり取りを動画で一緒に確認しましょう。",
         descriptionEn: "Practice the dialogue from the main slides along with the video. Listen to native pronunciation and natural conversational flow."
       },
